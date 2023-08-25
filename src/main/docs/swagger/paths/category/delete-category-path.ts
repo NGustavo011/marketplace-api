@@ -1,10 +1,10 @@
-export const deleteProductPath = {
+export const deleteCategoryPath = {
 	delete: {
 		security: [{
 			apiKeyAuth: []
 		}],
-		tags: ['Product'],
-		summary: 'Rota para deletar um produto',
+		tags: ['Category'],
+		summary: 'Rota para deletar uma categoria',
 		parameters: [
 			{
 				in: 'query',
