@@ -1,30 +1,23 @@
-export const getProductPath = {
-	get: {
+export const deleteProductPath = {
+	delete: {
 		security: [{
 			apiKeyAuth: []
 		}],
 		tags: ['Product'],
-		summary: 'Rota para listar produto',
+		summary: 'Rota para deletar um produto',
 		parameters: [
 			{
 				in: 'query',
 				name: 'id',
-				required: false,
+				required: true,
 				schema: {
 					type: 'string'
 				}
 			}
 		],
 		responses: {
-			200: {
-				description: 'Sucesso',
-				content: {
-					'application/json': {
-						schema: {
-							$ref: '#/schemas/getProduct'
-						}
-					}
-				}
+			204: {
+				$ref: '#components/noContent'
 			},
 			401: {
 				$ref: '#components/unauthorized'

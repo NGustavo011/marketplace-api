@@ -1,10 +1,10 @@
 export const editProductPath = {
-	post: {
+	put: {
 		security: [{
 			apiKeyAuth: []
 		}],
 		tags: ['Product'],
-		summary: 'Rota para edit um produto',
+		summary: 'Rota para editar um produto',
 		parameters: [
 			{
 				in: 'query',

@@ -1,4 +1,5 @@
 import { addProductPath } from './product/add-product-path';
+import { deleteProductPath } from './product/delete-product-path';
 import { editProductPath } from './product/edit-product-path';
 import { getProductPath } from './product/get-product-path';
 import { loginPath } from './user/login-path';
@@ -10,5 +11,6 @@ export const swaggerPaths = {
 	'/login': loginPath,
 	'/add-product': addProductPath,
 	'/edit-product': editProductPath,
+	'/delete-product': deleteProductPath,
 	'/get-product': getProductPath
 };
