@@ -10,11 +10,14 @@ export const swaggerConfig = {
 		version: '1.0.0'
 	},
 	servers: [{
-		url: '/api'
+		url: '/api/'
 	}],
 	tags: [
 		{
 			name: 'User'
+		}, 
+		{
+			name: 'Product'
 		}
 	],
 	paths: swaggerPaths,

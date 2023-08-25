@@ -1,8 +1,10 @@
+import { addProductPath } from './product/add-product-path';
 import { loginPath } from './user/login-path';
 import { signUpPath } from './user/register-path';
 
 
 export const swaggerPaths = {
-	signUp: signUpPath,
-	login: loginPath
+	'/sign-up': signUpPath,
+	'/login': loginPath,
+	'/add-product': addProductPath
 };
