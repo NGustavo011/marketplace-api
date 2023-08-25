@@ -1,3 +1,4 @@
+import { addCategoryPath } from './category/add-category-path';
 import { addProductPath } from './product/add-product-path';
 import { deleteProductPath } from './product/delete-product-path';
 import { editProductPath } from './product/edit-product-path';
@@ -12,5 +13,6 @@ export const swaggerPaths = {
 	'/add-product': addProductPath,
 	'/edit-product': editProductPath,
 	'/delete-product': deleteProductPath,
-	'/get-product': getProductPath
+	'/get-product': getProductPath,
+	'/add-category': addCategoryPath,
 };

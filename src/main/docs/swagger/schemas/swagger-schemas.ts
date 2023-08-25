@@ -1,4 +1,5 @@
 
+import { addCategorySchema } from './category/add-category';
 import { categorySchema } from './category/category';
 import { addProductSchema } from './product/add-product';
 import { getProductSchema } from './product/get-product';
@@ -11,6 +12,7 @@ import { userSchema } from './user/user';
 
 export const swaggerSchemas = {
 	account: accountSchema,
+	addCategory: addCategorySchema,
 	addProduct: addProductSchema,
 	category: categorySchema,
 	getProduct: getProductSchema,

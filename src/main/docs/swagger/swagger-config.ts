@@ -18,6 +18,9 @@ export const swaggerConfig = {
 		}, 
 		{
 			name: 'Product'
+		},
+		{
+			name: 'Category'
 		}
 	],
 	paths: swaggerPaths,
