@@ -19,12 +19,6 @@ export const productSchema = {
 		seller: {
 			$ref: '#/schemas/user'
 		},
-		buyer_id: {
-			type: 'string'
-		},
-		buyer: {
-			$ref: '#/schemas/user'
-		},
 		category_id: {
 			type: 'string'
 		},

@@ -16,9 +16,6 @@ export const addProductSchema = {
 		seller_user_id: {
 			type: 'string'
 		},
-		buyer_user_id: {
-			type: 'string'
-		},
 		category_id: {
 			type: 'string'
 		},
