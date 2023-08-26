@@ -13,13 +13,13 @@ export const addProductSchema = {
 		salePrice: {
 			type: 'number'
 		},
-		seller_user_id: {
+		sellerUserId: {
 			type: 'string'
 		},
-		category_id: {
+		categoryId: {
 			type: 'string'
 		},
-		url_image: {
+		urlImage: {
 			type: 'string'
 		}
 	},
