@@ -4,7 +4,7 @@ export const addOrderPath = {
 			apiKeyAuth: []
 		}],
 		tags: ['Order'],
-		summary: 'Rota para criar uma pedido',
+		summary: 'Rota para criar um pedido',
 		requestBody: {
 			content: {
 				'application/json': {
