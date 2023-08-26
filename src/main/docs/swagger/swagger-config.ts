@@ -21,6 +21,9 @@ export const swaggerConfig = {
 		},
 		{
 			name: 'Category'
+		},
+		{
+			name: 'Order'
 		}
 	],
 	paths: swaggerPaths,

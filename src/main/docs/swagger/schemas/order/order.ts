@@ -9,6 +9,9 @@ export const orderSchema = {
 			items: {
 				$ref: '#/schemas/orderItem'
 			}
+		},
+		status: {
+			type: 'string'
 		}
 	}
 };

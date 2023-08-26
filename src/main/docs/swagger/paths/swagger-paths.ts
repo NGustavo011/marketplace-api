@@ -3,6 +3,7 @@ import { deleteCategoryPath } from './category/delete-category-path';
 import { editCategoryPath } from './category/edit-category-path';
 import { getCategoryPath } from './category/get-category-path';
 import { addOrderPath } from './order/add-order-path';
+import { editOrderStatusPath } from './order/edit-order-status-path';
 import { addProductPath } from './product/add-product-path';
 import { deleteProductPath } from './product/delete-product-path';
 import { editProductPath } from './product/edit-product-path';
@@ -22,5 +23,6 @@ export const swaggerPaths = {
 	'/add-category': addCategoryPath,
 	'/edit-category': editCategoryPath,
 	'/delete-category': deleteCategoryPath,
-	'/add-order': addOrderPath
+	'/add-order': addOrderPath,
+	'/edit-order-status': editOrderStatusPath 
 };
