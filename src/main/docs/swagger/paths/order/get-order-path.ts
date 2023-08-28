@@ -32,6 +32,14 @@ export const getOrderPath = {
 			},
 			{
 				in: 'query',
+				name: 'paymentMethod',
+				required: false,
+				schema: {
+					type: 'string'
+				}
+			},
+			{
+				in: 'query',
 				name: 'status',
 				required: false,
 				schema: {

@@ -1,12 +1,21 @@
 export const addOrderSchema = {
-	type: 'array',
-	items: {
-		type: 'object',
-		properties: {
-			productId: {
-				type: 'string'
-			},
-		}
+	type: 'object',
+	properties: {
+		paymentMethod: {
+			type: 'string'
+		},
+		products: {
+			type: 'array',
+			items: {
+				type: 'object',
+				properties: {
+					id: {
+						type: 'string'
+					},
+				}
+			}
+		},
 	}
+	
 };
   
