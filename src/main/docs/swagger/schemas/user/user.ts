@@ -9,7 +9,10 @@ export const userSchema = {
 		},
 		name: {
 			type: 'string'
-		}
+		},
+		password: {
+			type: 'string'
+		},
 	}
 };
   
