@@ -4,7 +4,8 @@ export interface LoginParams {
   email: string
   password: string
 }
+export type LoginReturn = AuthenticationModel
 
 export interface LoginContract {
-  auth: (loginParams: LoginParams) => Promise<AuthenticationModel | null>
+  auth: (loginParams: LoginParams) => Promise<LoginReturn | null>
 }

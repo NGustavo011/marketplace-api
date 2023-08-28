@@ -6,7 +6,8 @@ export interface RegisterParams {
   password: string
   confirmPassword: string
 }
+export type RegisterReturn = UserModel
 
 export interface RegisterContract {
-  add: (user: RegisterParams) => Promise<UserModel | null>
+  add: (user: RegisterParams) => Promise< | null>
 }

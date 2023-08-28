@@ -13,6 +13,9 @@ export const userSchema = {
 		password: {
 			type: 'string'
 		},
+		role: {
+			type: 'string'
+		}
 	}
 };
   
