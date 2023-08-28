@@ -13,7 +13,23 @@ export const getProductPath = {
 				schema: {
 					type: 'string'
 				}
-			}
+			},
+			{
+				in: 'query',
+				name: 'sellerId',
+				required: false,
+				schema: {
+					type: 'string'
+				}
+			},
+			{
+				in: 'query',
+				name: 'categoryId',
+				required: false,
+				schema: {
+					type: 'string'
+				}
+			},
 		],
 		responses: {
 			200: {

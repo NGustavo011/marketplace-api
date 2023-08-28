@@ -13,7 +13,7 @@ export const addProductSchema = {
 		salePrice: {
 			type: 'number'
 		},
-		sellerUserId: {
+		sellerId: {
 			type: 'string'
 		},
 		categoryId: {
