@@ -7,7 +7,7 @@ export class DeleteProduct implements DeleteProductContract {
 	}
 
 	async delete (deleteProductParams: DeleteProductParams): Promise<boolean | null>{
-		const deleteProduct = await this.deleteProductRepository.delete(deleteProductParams);
-		return deleteProduct;
+		const isProductDeleted = await this.deleteProductRepository.delete(deleteProductParams);
+		return isProductDeleted;
 	}
 }

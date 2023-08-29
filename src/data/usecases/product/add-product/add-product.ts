@@ -7,7 +7,7 @@ export class AddProduct implements AddProductContract {
 	}
 
 	async add (addProductParams: AddProductParams): Promise<AddProductReturn | null>{
-		const addProduct = await this.addProductRepository.add(addProductParams);
-		return addProduct;
+		const product = await this.addProductRepository.add(addProductParams);
+		return product;
 	}
 }

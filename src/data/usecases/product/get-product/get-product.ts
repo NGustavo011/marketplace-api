@@ -7,7 +7,7 @@ export class GetProduct implements GetProductContract {
 	}
 
 	async get (getProductParams: GetProductParams): Promise<GetProductReturn | null>{
-		const getProduct = await this.getProductRepository.get(getProductParams);
-		return getProduct;
+		const products = await this.getProductRepository.get(getProductParams);
+		return products;
 	}
 }
