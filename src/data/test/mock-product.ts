@@ -1,8 +1,10 @@
 import { ProductModel } from '../../domain/models/product';
 import { AddProductParams, AddProductReturn } from '../../domain/usecases-contracts/product/add-product';
+import { EditProductParams, EditProductReturn } from '../../domain/usecases-contracts/product/edit-product';
 import { GetProductParams, GetProductReturn } from '../../domain/usecases-contracts/product/get-product';
 import { ValidateProductPriceParams } from '../../domain/usecases-contracts/product/validate-product-price';
 import { AddProductRepository } from '../repositories-contracts/product/add-product-repository';
+import { EditProductRepository } from '../repositories-contracts/product/edit-product-repository';
 import { GetProductRepository } from '../repositories-contracts/product/get-product-repository';
 
 export const mockProductModel = (): ProductModel => ({
@@ -39,12 +41,25 @@ export const mockProductPriceParams = (): ValidateProductPriceParams => ({
 
 export const mockAddProductParams = (): AddProductParams => ({
 	categoryId: 'any_category_id',
-	sellerId: 'any_seller_id',
+	userId: 'any_user_id',
 	description: 'any_description',
 	name: 'any_name',
 	urlImage: 'any_url_image',
 	listPrice: 0,
 	salePrice: 0
+});
+
+export const mockEditProductParams = (): EditProductParams => ({
+	id: 'any_id',
+	userId: 'any_user_id',
+	product: {
+		categoryId: 'any_category_id',
+		description: 'any_description',
+		name: 'any_name',
+		urlImage: 'any_url_image',
+		listPrice: 0,
+		salePrice: 0
+	}
 });
 
 export const mockGetProductRepository = (): GetProductRepository => {
@@ -63,4 +78,13 @@ export const mockAddProductRepository = (): AddProductRepository => {
 		}
 	}
 	return new AddProductRepositoryStub();
+};
+
+export const mockEditProductRepository = (): EditProductRepository => {
+	class EditProductRepositoryStub implements EditProductRepository {
+		async edit(): Promise<EditProductReturn | null>{
+			return await Promise.resolve(mockProductModel());
+		}
+	}
+	return new EditProductRepositoryStub();
 };

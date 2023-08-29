@@ -4,7 +4,7 @@ import { AddProductParams } from './add-product';
 
 export type EditProductParams = {
     id: string
-    category: AddProductParams
+    product: Omit<AddProductParams, 'userId'>
 } & UserUsed
 export type EditProductReturn = ProductModel
 
