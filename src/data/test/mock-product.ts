@@ -1,9 +1,11 @@
 import { ProductModel } from '../../domain/models/product';
 import { AddProductParams, AddProductReturn } from '../../domain/usecases-contracts/product/add-product';
+import { DeleteProductParams } from '../../domain/usecases-contracts/product/delete-product';
 import { EditProductParams, EditProductReturn } from '../../domain/usecases-contracts/product/edit-product';
 import { GetProductParams, GetProductReturn } from '../../domain/usecases-contracts/product/get-product';
 import { ValidateProductPriceParams } from '../../domain/usecases-contracts/product/validate-product-price';
 import { AddProductRepository } from '../repositories-contracts/product/add-product-repository';
+import { DeleteProductRepository } from '../repositories-contracts/product/delete-product-repository';
 import { EditProductRepository } from '../repositories-contracts/product/edit-product-repository';
 import { GetProductRepository } from '../repositories-contracts/product/get-product-repository';
 
@@ -62,6 +64,11 @@ export const mockEditProductParams = (): EditProductParams => ({
 	}
 });
 
+export const mockDeleteProductParams = (): DeleteProductParams => ({
+	id: 'any_id',
+	userId: 'any_user_id'
+});
+
 export const mockGetProductRepository = (): GetProductRepository => {
 	class GetProductRepositoryStub implements GetProductRepository {
 		async get(): Promise<GetProductReturn | null>{
@@ -87,4 +94,13 @@ export const mockEditProductRepository = (): EditProductRepository => {
 		}
 	}
 	return new EditProductRepositoryStub();
+};
+
+export const mockDeleteProductRepository = (): DeleteProductRepository => {
+	class DeleteProductRepositoryStub implements DeleteProductRepository {
+		async delete(): Promise<boolean | null>{
+			return await Promise.resolve(true);
+		}
+	}
+	return new DeleteProductRepositoryStub();
 };
