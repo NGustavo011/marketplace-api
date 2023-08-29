@@ -1,6 +1,6 @@
 import { OrderItemModel } from './order-item';
 
-export type OrderStatusModel = 'Pending' | 'Canceled' | 'Finished'
+export type OrderStatusModel = 'pending' | 'canceled' | 'finished'
 
 export interface OrderModel {
     id: string
