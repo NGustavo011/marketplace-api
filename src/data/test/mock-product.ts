@@ -1,5 +1,6 @@
 import { ProductModel } from '../../domain/models/product';
 import { GetProductParams, GetProductReturn } from '../../domain/usecases-contracts/product/get-product';
+import { ValidateProductPriceParams } from '../../domain/usecases-contracts/product/validate-product-price';
 import { GetProductRepository } from '../repositories-contracts/product/get-product-repository';
 
 export const mockProductModel = (): ProductModel => ({
@@ -27,6 +28,11 @@ export const mockProductModel = (): ProductModel => ({
 
 export const mockGetProductParams = (): GetProductParams => ({
 	id: 'any_id'
+});
+
+export const mockProductPriceParams = (): ValidateProductPriceParams => ({
+	salePrice: 200,
+	listPrice: 200
 });
 
 export const mockGetProductRepository = (): GetProductRepository => {
