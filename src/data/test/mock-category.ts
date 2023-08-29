@@ -15,9 +15,7 @@ export const mockGetCategoryParams = (): GetCategoryParams => ({
 export const mockGetCategoryRepository = (): GetCategoryRepository => {
 	class GetCategoryRepositoryStub implements GetCategoryRepository {
 		async get(): Promise<GetCategoryReturn | null>{
-			return await new Promise((resolve) => {
-				resolve([mockCategoryModel()]);
-			});
+			return await Promise.resolve([mockCategoryModel()]);
 		}
 	}
 	return new GetCategoryRepositoryStub();

@@ -26,9 +26,7 @@ export const mockUserModel = (): UserModel => ({
 export const mockRegisterRepository = (): RegisterRepository => {
 	class RegisterRepositoryStub implements RegisterRepository {
 		async add (): Promise<UserModel> {
-			return await new Promise((resolve) => {
-				resolve(mockUserModel());
-			});
+			return await Promise.resolve(mockUserModel());
 		}
 	}
 	return new RegisterRepositoryStub();
@@ -37,9 +35,7 @@ export const mockRegisterRepository = (): RegisterRepository => {
 export const mockLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
 	class LoadAccountByEmailRepositoryStub implements LoadAccountByEmailRepository {
 		async loadByEmail (): Promise<UserModel> {
-			return await new Promise((resolve) => {
-				resolve(mockUserModel());
-			});
+			return await Promise.resolve(mockUserModel());
 		}
 	}
 	return new LoadAccountByEmailRepositoryStub();

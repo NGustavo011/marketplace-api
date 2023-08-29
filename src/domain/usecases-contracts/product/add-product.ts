@@ -1,8 +1,6 @@
 import { ProductModel } from '../../models/product';
-import { UserUsed } from '../../models/user';
 
-
-export type AddProductParams = Omit<ProductModel, 'id' | 'seller' | 'category'> & UserUsed
+export type AddProductParams = Omit<ProductModel, 'id' | 'seller' | 'category'>
 export type AddProductReturn = ProductModel
 
 export interface AddProductContract {
