@@ -2,8 +2,10 @@ import { OrderModel } from '../../domain/models/order';
 import { OrderItemModel } from '../../domain/models/order-item';
 import { AddOrderParams, AddOrderReturn } from '../../domain/usecases-contracts/order/add-order';
 import { EditOrderStatusParams, EditOrderStatusReturn } from '../../domain/usecases-contracts/order/edit-order-status';
+import { GetOrderParams, GetOrderReturn } from '../../domain/usecases-contracts/order/get-order';
 import { AddOrderRepository } from '../repositories-contracts/order/add-order-repository';
 import { EditOrderStatusRepository } from '../repositories-contracts/order/edit-order-status-repository';
+import { GetOrderRepository } from '../repositories-contracts/order/get-order-repository';
 
 export const mockOrderItemModel = (): OrderItemModel =>({
 	id: 'any_id',
@@ -52,6 +54,11 @@ export const mockEditOrderStatusParams = (): EditOrderStatusParams => ({
 	type: 'finished'
 });
 
+export const mockGetOrderParams = (): GetOrderParams => ({
+	userId: 'any_user_id',
+	id: 'any_id'
+});
+
 export const mockAddOrderRepository = (): AddOrderRepository => {
 	class AddOrderRepositoryStub implements AddOrderRepository {
 		async add(): Promise<AddOrderReturn | null>{
@@ -68,4 +75,13 @@ export const mockEditOrderStatusRepository = (): EditOrderStatusRepository => {
 		}
 	}
 	return new EditOrderStatusRepositoryStub();
+};
+
+export const mockGetOrderRepository = (): GetOrderRepository => {
+	class GetOrderRepositoryStub implements GetOrderRepository {
+		async get(): Promise<GetOrderReturn | null>{
+			return await Promise.resolve([mockOrderModel()]);
+		}
+	}
+	return new GetOrderRepositoryStub();
 };
