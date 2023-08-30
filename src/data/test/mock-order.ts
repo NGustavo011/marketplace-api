@@ -45,8 +45,8 @@ export const mockAddOrderParams = (): AddOrderParams => ({
 	sellerId: 'any_seller_id',
 	paymentMethod: 'any_payment_method',
 	status: 'pending',
-	products: [ { id: 'any_product_id' } ],
-	userId: 'any_user_id'
+	products: [ { id: 'any_product_id', quantity: 1 } ],
+	userId: 'any_seller_id'
 });
 
 export const mockEditOrderStatusParams = (): EditOrderStatusParams => ({

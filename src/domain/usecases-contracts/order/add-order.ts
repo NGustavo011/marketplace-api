@@ -3,7 +3,8 @@ import { UserUsed } from '../../models/user';
 
 type Products = {
     products: {
-        id: string
+        id: string,
+        quantity: number
     }[]
 }
 

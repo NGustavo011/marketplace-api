@@ -1,4 +1,4 @@
-import { OrderModel } from '../../models/order';
+import { OrderModel, OrderStatusModel } from '../../models/order';
 import { UserUsed } from '../../models/user';
 
 export type GetOrderParams = {
@@ -6,7 +6,7 @@ export type GetOrderParams = {
   buyerId?: string
   sellerId?: string
   paymentMethod?: string
-  status?: string
+  status?: OrderStatusModel
 } & UserUsed
 export type GetOrderReturn = OrderModel[]
 
