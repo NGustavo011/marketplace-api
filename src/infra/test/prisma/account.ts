@@ -1,5 +1,6 @@
-import { mockUserModel } from '../../data/test/mock-user';
-import { prisma } from '../../main/config/prisma';
+import { mockUserModel } from '../../../data/test/mock-user';
+import { prisma } from '../../../main/config/prisma';
+
 
 export const mockPrismaUser = async (): Promise<void> => {
 	const userModel = mockUserModel();
