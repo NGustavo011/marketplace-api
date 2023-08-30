@@ -1,6 +1,6 @@
 import { mockRegisterParams } from '../../../../data/test/mock-user';
 import { prisma } from '../../../../main/config/prisma';
-import { mockPrismaUser } from '../../../test/prisma/account';
+import { mockPrismaUser } from '../../../test/prisma/user';
 import { clearDatabase } from '../../../test/prisma/clear-database';
 import { UserPrismaRepository } from './user-prisma-repository';
 

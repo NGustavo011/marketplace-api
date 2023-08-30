@@ -18,12 +18,12 @@ describe('CategoryPrismaRepository', ()=> {
 	});
 	beforeEach(async () => {
 		await clearDatabase();
-		await mockPrismaCategory();
 	});
 
 	describe('get()', () => {
 		test('Deve retornar todas as categorias em caso de não especificar um id', async () => {
 			const sut = makeSut();
+			await mockPrismaCategory();
 			const categories = await sut.get({}) as GetCategoryReturn;
 			expect(categories).toBeTruthy();
 			expect(categories).toHaveLength(2);
@@ -31,6 +31,7 @@ describe('CategoryPrismaRepository', ()=> {
 
 		test('Deve retornar uma categoria em caso de especificar o id', async () => {
 			const sut = makeSut();
+			await mockPrismaCategory();
 			const categories = await sut.get({ id: 'category_id_2' }) as GetCategoryReturn;
 			expect(categories).toBeTruthy();
 			expect(categories).toHaveLength(1);
