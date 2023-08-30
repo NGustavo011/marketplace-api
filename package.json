@@ -1,7 +1,7 @@
 {
   "name": "marketplace-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "The Marketplace API empowers users to buy and sell products. Users can interact with the platform to facilitate transactions and manage their listings.",
   "main": "index.js",
   "scripts": {
     "dev": "yarn nodemon src/main/server.ts",
