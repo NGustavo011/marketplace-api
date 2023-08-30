@@ -27,7 +27,8 @@ export const mockOrderItemModel = (): OrderItemModel =>({
 	},
 	listPrice: 0,
 	salePrice: 0,
-	urlImage: 'any_url_image'
+	urlImage: 'any_url_image',
+	quantity: 1
 });
 
 export const mockOrderModel = (): OrderModel => ({
