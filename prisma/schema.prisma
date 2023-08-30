@@ -1,11 +1,76 @@
 generator client {
-  provider      = "prisma-client-js"
-  binaryTargets = ["rhel-openssl-1.0.x", "debian-openssl-1.1.x"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String      @id @default(uuid())
+  name       String
+  email      String
+  password   String
+  role       UserRole
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  orderItems OrderItem[]
+  products   Product[]
+}
+
+model Category {
+  id          String      @id @default(uuid())
+  name        String
+  description String
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  orderItems  OrderItem[]
+  products    Product[]
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  listPrice   Decimal
+  salePrice   Decimal
+  sellerId    String
+  categoryId  String
+  urlImage    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  category    Category @relation(fields: [categoryId], references: [id])
+  seller      User     @relation(fields: [sellerId], references: [id])
+}
+
+model Order {
+  id            String      @id @default(uuid())
+  buyerId       String
+  sellerId      String
+  paymentMethod String
+  status        OrderStatus
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  orderItems    OrderItem[]
+}
+
+model OrderItem {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  listPrice   Decimal
+  salePrice   Decimal
+  sellerId    String
+  categoryId  String
+  urlImage    String
+  quantity    Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  orderId     String
+  category    Category @relation(fields: [categoryId], references: [id])
+  order       Order    @relation(fields: [orderId], references: [id])
+  seller      User     @relation(fields: [sellerId], references: [id])
 }
 
 enum UserRole {
@@ -17,70 +82,4 @@ enum OrderStatus {
   pending
   canceled
   finished
-}
-
-model User {
-  id         String      @id @default(uuid())
-  name       String
-  email      String
-  password   String
-  role       UserRole
-  products   Product[]
-  orderItems OrderItem[]
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-}
-
-model Category {
-  id          String      @id @default(uuid())
-  name        String
-  description String
-  products    Product[]
-  orderItems  OrderItem[]
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-}
-
-model Product {
-  id          String   @id @default(uuid())
-  name        String
-  description String
-  listPrice   Decimal
-  salePrice   Decimal
-  sellerId    String
-  seller      User     @relation(fields: [sellerId], references: [id])
-  categoryId  String
-  category    Category @relation(fields: [categoryId], references: [id])
-  urlImage    String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
-model Order {
-  id            String      @id @default(uuid())
-  buyerId       String
-  sellerId      String
-  orderItems    OrderItem[]
-  paymentMethod String
-  status        OrderStatus
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-}
-
-model OrderItem {
-  id          String   @id @default(uuid())
-  name        String
-  description String
-  listPrice   Decimal
-  salePrice   Decimal
-  sellerId    String
-  seller      User     @relation(fields: [sellerId], references: [id])
-  categoryId  String
-  category    Category @relation(fields: [categoryId], references: [id])
-  urlImage    String
-  quantity    Int
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  orderId     String
-  order       Order    @relation(fields: [orderId], references: [id])
 }
