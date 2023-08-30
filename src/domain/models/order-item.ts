@@ -12,4 +12,5 @@ export interface OrderItemModel {
     categoryId: string
     category: CategoryModel
     urlImage: string
+    quantity: number
 }
