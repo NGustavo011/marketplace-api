@@ -1,8 +1,5 @@
 export const getProductPath = {
 	get: {
-		security: [{
-			apiKeyAuth: []
-		}],
 		tags: ['Product'],
 		summary: 'Rota para listar produto',
 		parameters: [

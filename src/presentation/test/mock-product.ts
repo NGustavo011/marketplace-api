@@ -2,6 +2,7 @@ import { mockProductModel } from '../../data/test/mock-product';
 import { AddProductContract, AddProductReturn } from '../../domain/usecases-contracts/product/add-product';
 import { DeleteProductContract } from '../../domain/usecases-contracts/product/delete-product';
 import { EditProductContract, EditProductReturn } from '../../domain/usecases-contracts/product/edit-product';
+import { GetProductContract, GetProductReturn } from '../../domain/usecases-contracts/product/get-product';
 import { ValidateProductPriceContract } from '../../domain/usecases-contracts/product/validate-product-price';
 
 export const mockAddProduct = (): AddProductContract => {
@@ -38,4 +39,13 @@ export const mockEditProduct = (): EditProductContract => {
 		}
 	}
 	return new EditProductStub();
+};
+
+export const mockGetProduct = (): GetProductContract => {
+	class GetProductStub implements GetProductContract {
+		async get (): Promise<GetProductReturn | null>{
+			return await Promise.resolve([mockProductModel()]);
+		}
+	}
+	return new GetProductStub();
 };

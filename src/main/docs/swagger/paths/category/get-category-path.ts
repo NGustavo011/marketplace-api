@@ -1,8 +1,5 @@
 export const getCategoryPath = {
 	get: {
-		security: [{
-			apiKeyAuth: []
-		}],
 		tags: ['Category'],
 		summary: 'Rota para listar categoria',
 		parameters: [
