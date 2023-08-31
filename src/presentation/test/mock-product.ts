@@ -1,6 +1,7 @@
 import { mockProductModel } from '../../data/test/mock-product';
 import { AddProductContract, AddProductReturn } from '../../domain/usecases-contracts/product/add-product';
 import { DeleteProductContract } from '../../domain/usecases-contracts/product/delete-product';
+import { EditProductContract, EditProductReturn } from '../../domain/usecases-contracts/product/edit-product';
 import { ValidateProductPriceContract } from '../../domain/usecases-contracts/product/validate-product-price';
 
 export const mockAddProduct = (): AddProductContract => {
@@ -28,4 +29,13 @@ export const mockDeleteProduct = (): DeleteProductContract => {
 		}
 	}
 	return new DeleteProductStub();
+};
+
+export const mockEditProduct = (): EditProductContract => {
+	class EditProductStub implements EditProductContract {
+		async edit (): Promise<EditProductReturn | null>{
+			return await Promise.resolve(mockProductModel());
+		}
+	}
+	return new EditProductStub();
 };
