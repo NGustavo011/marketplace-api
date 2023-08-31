@@ -31,9 +31,15 @@ describe('Validation Composite', () => {
 		const error = await sut.validate({ field: 'any_value' });
 		expect(error).toEqual(new Error());
 	});
-	test('Não deve retornar nada se a validação', async () => {
+	test('Deve retornar o erro em Promise', async () => {
+		const { sut, validationStubs } = makeSut();
+		jest.spyOn(validationStubs[0], 'validate').mockReturnValueOnce(Promise.resolve(new Error()));
+		const error = await sut.validate({ field: 'any_value' });
+		expect(error).toEqual(new Error());
+	});
+	test('Não deve retornar nada se a validação não falhar', async () => {
 		const { sut } = makeSut();
 		const error = await sut.validate({ field: 'any_value' });
-		expect(error).toBeFalsy();
+		expect(error).toBeNull();
 	});
 });

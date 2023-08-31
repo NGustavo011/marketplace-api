@@ -9,9 +9,12 @@ export class ValidationComposite implements Validation {
 		for (const validation of this.validations) {
 			const error = validation.validate(input);
 			if (isPromise(error)) {
-				return await Promise.resolve(error);
+				const promisedError = await Promise.resolve(error);
+				if(promisedError){
+					return await Promise.resolve(promisedError);
+				}
 			}
-			if (error) {
+			else if (error) {
 				return error;
 			}
 		}

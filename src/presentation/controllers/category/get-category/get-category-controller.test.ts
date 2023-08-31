@@ -50,7 +50,6 @@ describe('GetCategory Controller', () => {
 	test('Retorne status 200 se o dado provido for válido', async () => {
 		const { sut } = makeSut();
 		const httpResponse = await sut.execute(mockRequest());
-		console.log(httpResponse);
 		expect(httpResponse).toEqual(ok([mockCategoryModel()]));
 	});
 });
