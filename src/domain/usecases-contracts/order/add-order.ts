@@ -1,14 +1,13 @@
 import { OrderModel } from '../../models/order';
-import { UserUsed } from '../../models/user';
 
-type Products = {
+export type OrderProducts = {
     products: {
         id: string,
         quantity: number
     }[]
 }
 
-export type AddOrderParams = Omit<OrderModel, 'id' | 'orderItems'> & Products & UserUsed
+export type AddOrderParams = Omit<OrderModel, 'id' | 'orderItems'> & OrderProducts
 export type AddOrderReturn = OrderModel
 
 export interface AddOrderContract {

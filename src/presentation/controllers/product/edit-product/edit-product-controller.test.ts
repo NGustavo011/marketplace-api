@@ -1,14 +1,16 @@
 import { mockProductModel } from '../../../../data/test/mock-product';
 import { throwError } from '../../../../domain/test/test-helpers';
 import { EditProductContract } from '../../../../domain/usecases-contracts/product/edit-product';
+import { ValidateProductPriceContract } from '../../../../domain/usecases-contracts/product/validate-product-price';
 import { ValidateTokenContract } from '../../../../domain/usecases-contracts/user/validate-token';
 import { mockValidation } from '../../../../validation/test/mock-validation';
 import { HttpRequest } from '../../../contracts/http';
 import { Validation } from '../../../contracts/validation';
 import { InvalidParamError } from '../../../errors/invalid-param-error';
+import { InvalidProductPriceError } from '../../../errors/invalid-product-price-error';
 import { MissingParamError } from '../../../errors/missing-param-error';
 import { badRequest, ok, serverError, unauthorized } from '../../../helpers/http/http-helper';
-import { mockEditProduct } from '../../../test/mock-product';
+import { mockEditProduct, mockValidateProductPrice } from '../../../test/mock-product';
 import { mockValidateToken } from '../../../test/mock-user';
 import { EditProductController } from './edit-product-controller';
 
@@ -35,6 +37,7 @@ const mockRequest = (): HttpRequest => {
 interface SutTypes {
   validationStub: Validation
   validateTokenStub: ValidateTokenContract
+  validateProductPriceStub: ValidateProductPriceContract
   editProductStub: EditProductContract
   sut: EditProductController
 }
@@ -42,11 +45,13 @@ interface SutTypes {
 const makeSut = (): SutTypes => {
 	const validationStub = mockValidation();
 	const validateTokenStub = mockValidateToken();
+	const validateProductPriceStub = mockValidateProductPrice();
 	const editProductStub = mockEditProduct();
-	const sut = new EditProductController(editProductStub, validateTokenStub, validationStub);
+	const sut = new EditProductController(editProductStub, validateProductPriceStub, validateTokenStub, validationStub);
 	return {
 		validationStub,
 		validateTokenStub,
+		validateProductPriceStub,
 		editProductStub,
 		sut
 	};
@@ -81,6 +86,24 @@ describe('EditProduct Controller', () => {
 			jest.spyOn(validateTokenStub, 'validateToken').mockReturnValueOnce(Promise.resolve(null));
 			const httpResponse = await sut.execute(mockRequest());
 			expect(httpResponse).toEqual(unauthorized());
+		});
+	});
+	describe('ValidateProductPrice dependency', () => {
+		test('Deve chamar o ValidateProductPrice com valores corretos', async () => {
+			const { sut, validateProductPriceStub } = makeSut();
+			const validateSpy = jest.spyOn(validateProductPriceStub, 'validate');
+			const httpRequest = mockRequest();
+			await sut.execute(httpRequest);
+			expect(validateSpy).toHaveBeenCalledWith({
+				salePrice: httpRequest.body.salePrice, 
+				listPrice: httpRequest.body.listPrice
+			});
+		});
+		test('Retorne status 400 se o ValidateProductPrice retornar false', async () => {
+			const { sut, validateProductPriceStub } = makeSut();
+			jest.spyOn(validateProductPriceStub, 'validate').mockReturnValueOnce(false);
+			const httpResponse = await sut.execute(mockRequest());
+			expect(httpResponse).toEqual(badRequest(new InvalidProductPriceError()));
 		});
 	});
 	describe('EditProduct dependency', () => {

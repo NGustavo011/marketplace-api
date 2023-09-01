@@ -3,9 +3,11 @@ import { OrderItemModel } from '../../domain/models/order-item';
 import { AddOrderParams, AddOrderReturn } from '../../domain/usecases-contracts/order/add-order';
 import { EditOrderStatusParams, EditOrderStatusReturn } from '../../domain/usecases-contracts/order/edit-order-status';
 import { GetOrderParams, GetOrderReturn } from '../../domain/usecases-contracts/order/get-order';
+import { ValidateOrderSellerParams } from '../../domain/usecases-contracts/order/validate-order-seller';
 import { AddOrderRepository } from '../repositories-contracts/order/add-order-repository';
 import { EditOrderStatusRepository } from '../repositories-contracts/order/edit-order-status-repository';
 import { GetOrderRepository } from '../repositories-contracts/order/get-order-repository';
+import { ValidateOrderSellerRepository } from '../repositories-contracts/order/validate-order-seller-repository';
 
 export const mockOrderItemModel = (): OrderItemModel =>({
 	id: 'any_id',
@@ -46,7 +48,6 @@ export const mockAddOrderParams = (): AddOrderParams => ({
 	paymentMethod: 'any_payment_method',
 	status: 'pending',
 	products: [ { id: 'any_product_id', quantity: 1 } ],
-	userId: 'any_seller_id'
 });
 
 export const mockEditOrderStatusParams = (): EditOrderStatusParams => ({
@@ -58,6 +59,20 @@ export const mockEditOrderStatusParams = (): EditOrderStatusParams => ({
 export const mockGetOrderParams = (): GetOrderParams => ({
 	userId: 'any_user_id',
 	id: 'any_id'
+});
+
+export const mockValidateOrderSellerParams = (): ValidateOrderSellerParams => ({
+	sellerId: 'any_seller_id',
+	products: [
+		{
+			id: 'product_id_1',
+			quantity: 1
+		},
+		{
+			id: 'product_id_2',
+			quantity: 1
+		}
+	]
 });
 
 export const mockAddOrderRepository = (): AddOrderRepository => {
@@ -85,4 +100,13 @@ export const mockGetOrderRepository = (): GetOrderRepository => {
 		}
 	}
 	return new GetOrderRepositoryStub();
+};
+
+export const mockValidateOrderSellerRepository = (): ValidateOrderSellerRepository => {
+	class ValidateOrderSellerRepositoryStub implements ValidateOrderSellerRepository {
+		async validateSeller (): Promise<boolean | null>{
+			return await Promise.resolve(true);
+		}
+	}
+	return new ValidateOrderSellerRepositoryStub();
 };

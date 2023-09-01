@@ -1,13 +1,15 @@
 import { AddOrderRepository } from '../../../../data/repositories-contracts/order/add-order-repository';
 import { EditOrderStatusRepository } from '../../../../data/repositories-contracts/order/edit-order-status-repository';
 import { GetOrderRepository } from '../../../../data/repositories-contracts/order/get-order-repository';
+import { ValidateOrderSellerRepository } from '../../../../data/repositories-contracts/order/validate-order-seller-repository';
 import { OrderItemModel } from '../../../../domain/models/order-item';
 import { AddOrderParams, AddOrderReturn } from '../../../../domain/usecases-contracts/order/add-order';
 import { EditOrderStatusParams, EditOrderStatusReturn } from '../../../../domain/usecases-contracts/order/edit-order-status';
 import { GetOrderParams, GetOrderReturn } from '../../../../domain/usecases-contracts/order/get-order';
+import { ValidateOrderSellerParams, ValidateOrderSellerReturn } from '../../../../domain/usecases-contracts/order/validate-order-seller';
 import { prisma } from '../../../../main/config/prisma';
 
-export class OrderPrismaRepository implements AddOrderRepository, EditOrderStatusRepository, GetOrderRepository {
+export class OrderPrismaRepository implements AddOrderRepository, EditOrderStatusRepository, GetOrderRepository, ValidateOrderSellerRepository {
 	async add (addOrderParams: AddOrderParams): Promise<AddOrderReturn | null> {
 		const { buyerId, sellerId, paymentMethod, status, products } = addOrderParams;
 		const order = await prisma.order.create({
@@ -175,5 +177,20 @@ export class OrderPrismaRepository implements AddOrderRepository, EditOrderStatu
 			};
 		});
 		return ordersFormated;
+	}
+	async validateSeller (validateOrderSellerParams: ValidateOrderSellerParams): Promise<ValidateOrderSellerReturn | null>{
+		const { sellerId, products } = validateOrderSellerParams;
+		for(const product of products){
+			const productFounded = await prisma.product.findUnique({
+				where: {
+					id: product.id,
+					sellerId: sellerId
+				}
+			});
+			if(!productFounded){
+				return false;
+			}
+		}
+		return true;
 	}
 }

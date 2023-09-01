@@ -5,6 +5,7 @@ import { mockUserModel } from '../../../../data/test/mock-user';
 import { AddOrderReturn } from '../../../../domain/usecases-contracts/order/add-order';
 import { EditOrderStatusParams, EditOrderStatusReturn } from '../../../../domain/usecases-contracts/order/edit-order-status';
 import { GetOrderReturn } from '../../../../domain/usecases-contracts/order/get-order';
+import { ValidateOrderSellerReturn } from '../../../../domain/usecases-contracts/order/validate-order-seller';
 import { prisma } from '../../../../main/config/prisma';
 import { clearDatabase } from '../../../test/prisma/clear-database';
 import { mockPrismaOrder } from '../../../test/prisma/order';
@@ -32,7 +33,7 @@ describe('OrderPrismaRepository', ()=>{
 			const userModel = mockUserModel();
 			const user = await prisma.user.create({
 				data: {
-					id: addOrderParams.userId,
+					id: addOrderParams.buyerId,
 					name: userModel.name,
 					email: userModel.email,
 					password: userModel.password,
@@ -63,7 +64,7 @@ describe('OrderPrismaRepository', ()=>{
 			const order = await sut.add(addOrderParams) as AddOrderReturn;
 			expect(order).toBeTruthy();
 			expect(order.id).toBeTruthy();
-			expect(order.sellerId).toBe(user.id);
+			expect(order.buyerId).toBe(user.id);
 			expect(order.paymentMethod).toBe(addOrderParams.paymentMethod);
 			expect(order.orderItems[0].name).toBe(product.name);
 			expect(order.orderItems[0].sellerId).toBe(product.sellerId);
@@ -79,7 +80,7 @@ describe('OrderPrismaRepository', ()=>{
 			const userModel = mockUserModel();
 			const user = await prisma.user.create({
 				data: {
-					id: addOrderParams.userId,
+					id: addOrderParams.buyerId,
 					name: userModel.name,
 					email: userModel.email,
 					password: userModel.password,
@@ -184,5 +185,119 @@ describe('OrderPrismaRepository', ()=>{
 			expect(orders[0].paymentMethod).toBe('credit');
 			expect(orders[0].status).toBe('pending');
 		});
+	});
+
+	describe('validateSeller()', ()=>{
+		test('Deve retornar true em caso de sucesso no método de validateSeller', async () => {
+			const sut = makeSut();
+			const addOrderParams = mockAddOrderParams();
+			const userModel = mockUserModel();
+			const user = await prisma.user.create({
+				data: {
+					id: addOrderParams.buyerId,
+					name: userModel.name,
+					email: userModel.email,
+					password: userModel.password,
+					role: userModel.role
+				}
+			});
+			const categoryModel = mockCategoryModel();
+			const category = await prisma.category.create({
+				data: {
+					id: 'category_id',
+					name: categoryModel.name,
+					description: categoryModel.description
+				}
+			});
+			const productModel = mockProductModel();
+			await prisma.product.create({
+				data: {
+					id: addOrderParams.products[0].id,
+					name: productModel.name,
+					description: productModel.description,
+					listPrice: productModel.listPrice,
+					salePrice: productModel.salePrice,
+					urlImage: productModel.urlImage,
+					categoryId: category.id,
+					sellerId: user.id
+				}
+			});
+			const isOrderSellerValidate = await sut.validateSeller({
+				sellerId: user.id,
+				products: [
+					{
+						id: addOrderParams.products[0].id,
+						quantity: 1
+					}
+				]
+			}) as ValidateOrderSellerReturn;
+			expect(isOrderSellerValidate).toBeTruthy();
+		});
+		test('Deve retornar false em caso de validateSeller encontrar um produto que não pertence ao sellerId especificado', async () => {
+			const sut = makeSut();
+			const addOrderParams = mockAddOrderParams();
+			addOrderParams.products = [...addOrderParams.products, {id: 'product_id_2', quantity: 1}];
+			const userModel = mockUserModel();
+			await prisma.user.createMany({
+				data: 
+				[
+					{
+						id: addOrderParams.buyerId,
+						name: userModel.name,
+						email: userModel.email,
+						password: userModel.password,
+						role: userModel.role
+					},
+					{
+						id: 'user_id_2',
+						name: userModel.name,
+						email: userModel.email,
+						password: userModel.password,
+						role: userModel.role
+					}
+				]
+			});
+			const users = await prisma.user.findMany({});
+			const categoryModel = mockCategoryModel();
+			const category = await prisma.category.create({
+				data: {
+					id: 'category_id',
+					name: categoryModel.name,
+					description: categoryModel.description
+				}
+			});
+			const productModel = mockProductModel();
+			await prisma.product.createMany({
+				data: [
+					{
+						id: addOrderParams.products[0].id,
+						name: productModel.name,
+						description: productModel.description,
+						listPrice: productModel.listPrice,
+						salePrice: productModel.salePrice,
+						urlImage: productModel.urlImage,
+						categoryId: category.id,
+						sellerId: users[0].id
+					},
+					{
+						id: addOrderParams.products[1].id,
+						name: productModel.name,
+						description: productModel.description,
+						listPrice: productModel.listPrice,
+						salePrice: productModel.salePrice,
+						urlImage: productModel.urlImage,
+						categoryId: category.id,
+						sellerId: users[1].id
+					}
+				],
+
+			});
+			const isOrderSellerValidate = await sut.validateSeller({
+				sellerId: addOrderParams.buyerId,
+				products: addOrderParams.products
+			}) as ValidateOrderSellerReturn;
+			expect(isOrderSellerValidate).toBeFalsy();
+		});
+		
 	});
 });

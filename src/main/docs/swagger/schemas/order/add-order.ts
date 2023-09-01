@@ -4,6 +4,9 @@ export const addOrderSchema = {
 		paymentMethod: {
 			type: 'string'
 		},
+		sellerId: {
+			type: 'string'
+		},
 		products: {
 			type: 'array',
 			items: {
@@ -12,6 +15,9 @@ export const addOrderSchema = {
 					id: {
 						type: 'string'
 					},
+					quantity: {
+						type: 'number'
+					}
 				}
 			}
 		},

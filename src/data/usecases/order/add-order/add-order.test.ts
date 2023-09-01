@@ -3,8 +3,6 @@ import { AddOrderRepository } from '../../../repositories-contracts/order/add-or
 import { mockAddOrderParams, mockAddOrderRepository, mockOrderModel } from '../../../test/mock-order';
 import { AddOrder } from './add-order';
 
-
-
 interface SutTypes {
     addOrderRepositoryStub: AddOrderRepository
     sut: AddOrder

@@ -1,14 +1,17 @@
 import { EditProductContract } from '../../../../domain/usecases-contracts/product/edit-product';
+import { ValidateProductPriceContract } from '../../../../domain/usecases-contracts/product/validate-product-price';
 import { ValidateTokenContract } from '../../../../domain/usecases-contracts/user/validate-token';
 import { Controller } from '../../../contracts/controller';
 import { HttpRequest, HttpResponse } from '../../../contracts/http';
 import { Validation } from '../../../contracts/validation';
 import { InvalidParamError } from '../../../errors/invalid-param-error';
+import { InvalidProductPriceError } from '../../../errors/invalid-product-price-error';
 import { badRequest, ok, unauthorized } from '../../../helpers/http/http-helper';
 
 export class EditProductController extends Controller {
 	constructor(
         private readonly editProduct: EditProductContract,
+		private readonly validateProductPrice: ValidateProductPriceContract,
         private readonly validateToken: ValidateTokenContract,
         private readonly validation: Validation
 	){
@@ -34,6 +37,10 @@ export class EditProductController extends Controller {
 			urlImage 
 		} = httpRequest.body;
 		const { id } = httpRequest.query;
+		const validProductPrice = this.validateProductPrice.validate({ listPrice, salePrice });
+		if(!validProductPrice){
+			return badRequest(new InvalidProductPriceError());
+		}
 		const editedProduct = await this.editProduct.edit({
 			id,
 			userId: payload.userId,
