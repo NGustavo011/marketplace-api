@@ -1,6 +1,8 @@
 import { OrderItemModel } from './order-item';
 
-export type OrderStatusModel = 'pending' | 'canceled' | 'finished'
+const OrderStatusModelTypes = <const>['pending', 'canceled', 'finished']; 
+export type OrderStatusModel = typeof OrderStatusModelTypes[number]
+export const orderStatusModelTypes = OrderStatusModelTypes as unknown as string[];
 
 export interface OrderModel {
     id: string
