@@ -1,5 +1,6 @@
 import { mockOrderModel } from '../../data/test/mock-order';
 import { AddOrderContract, AddOrderReturn } from '../../domain/usecases-contracts/order/add-order';
+import { EditOrderStatusContract, EditOrderStatusReturn } from '../../domain/usecases-contracts/order/edit-order-status';
 import { ValidateOrderSellerContract, ValidateOrderSellerReturn } from '../../domain/usecases-contracts/order/validate-order-seller';
 
 export const mockAddOrder = (): AddOrderContract => {
@@ -18,4 +19,13 @@ export const mockValidateOrderSeller = (): ValidateOrderSellerContract => {
 		}
 	}
 	return new ValidateOrderSellerStub();
+};
+
+export const mockEditOrderStatus = (): EditOrderStatusContract => {
+	class EditOrderStatusStub implements EditOrderStatusContract {
+		async edit (): Promise<EditOrderStatusReturn | null>{
+			return await Promise.resolve(mockOrderModel());
+		}
+	}
+	return new EditOrderStatusStub;
 };
