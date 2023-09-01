@@ -1,6 +1,7 @@
 import { mockOrderModel } from '../../data/test/mock-order';
 import { AddOrderContract, AddOrderReturn } from '../../domain/usecases-contracts/order/add-order';
 import { EditOrderStatusContract, EditOrderStatusReturn } from '../../domain/usecases-contracts/order/edit-order-status';
+import { GetOrderContract, GetOrderReturn } from '../../domain/usecases-contracts/order/get-order';
 import { ValidateOrderSellerContract, ValidateOrderSellerReturn } from '../../domain/usecases-contracts/order/validate-order-seller';
 
 export const mockAddOrder = (): AddOrderContract => {
@@ -28,4 +29,13 @@ export const mockEditOrderStatus = (): EditOrderStatusContract => {
 		}
 	}
 	return new EditOrderStatusStub;
+};
+
+export const mockGetOrder = (): GetOrderContract => {
+	class GetOrderStub implements GetOrderContract {
+		async get (): Promise<GetOrderReturn | null>{
+			return await Promise.resolve([mockOrderModel()]);
+		}
+	}
+	return new GetOrderStub();
 };
