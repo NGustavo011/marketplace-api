@@ -5,4 +5,4 @@ import { adaptRoute } from '../../adapters/express-route-adapter';
 
 export const categoryRoutes = Router();
 
-categoryRoutes.get('/category', adaptRoute(makeGetCategoryController()));
+categoryRoutes.get('/get-category', adaptRoute(makeGetCategoryController()));

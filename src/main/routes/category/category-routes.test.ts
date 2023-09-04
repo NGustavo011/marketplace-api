@@ -3,7 +3,7 @@ import { prisma } from '../../config/prisma';
 import { clearDatabase } from '../../../infra/test/prisma/clear-database';
 import { app } from '../../config/app';
 
-describe('Account Routes', () => {
+describe('Category Routes', () => {
 	beforeAll(async () => {
 		await prisma.$connect();
 	});
@@ -13,9 +13,9 @@ describe('Account Routes', () => {
 	beforeEach(async () => {
 		await clearDatabase();
 	});
-	describe('GET /category', () => {
-		test('Deve retornar status code 200 em caso de sucesso no SignUp', async () => {
-			await request(app).get('/api/category').expect(200);
+	describe('GET /get-category', () => {
+		test('Deve retornar status code 200 em caso de sucesso no GetCategory', async () => {
+			await request(app).get('/api/get-category').expect(200);
 		});
 	});
 });
