@@ -1,4 +1,4 @@
-import * as bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt';
 import { type HasherRepository } from '../../../data/repositories-contracts/cryptography/hasher-repository';
 import { type HashComparerRepository } from '../../../data/repositories-contracts/cryptography/hash-comparer-repository';
 

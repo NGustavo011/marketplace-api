@@ -1,4 +1,4 @@
-import * as jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import { type EncrypterRepository } from '../../../data/repositories-contracts/cryptography/encrypter-repository';
 import { type DecrypterRepository } from '../../../data/repositories-contracts/cryptography/decrypter-repository';
 import { DecrypterPayload } from '../../../domain/usecases-contracts/user/validate-token';
