@@ -16,7 +16,6 @@ import { AddOrderController } from './add-order-controller';
 const mockRequest = (): HttpRequest => {
 	return {
 		body: {
-			paymentMethod: 'credit',
 			sellerId: 'any_seller_id',
 			products: [ 
 				{
@@ -116,7 +115,7 @@ describe('AddOrder Controller', () => {
 			expect(addSpy).toHaveBeenCalledWith({
 				products: httpRequest.body.products,
 				status: 'pending',
-				paymentMethod: httpRequest.body.paymentMethod,
+				paymentMethod: 'pix',
 				buyerId: 'any_user_id',
 				sellerId: httpRequest.body.sellerId,
 				txId: 'tx_id',

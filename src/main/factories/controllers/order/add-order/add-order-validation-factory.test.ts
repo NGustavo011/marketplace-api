@@ -10,7 +10,6 @@ describe('AddOrder Validation Factory', () => {
 		makeAddOrderValidation();
 		const validations: Validation[] = [];
 		for (const field of [
-			'paymentMethod',
 			'sellerId',
 			'products',
 			'authorization'

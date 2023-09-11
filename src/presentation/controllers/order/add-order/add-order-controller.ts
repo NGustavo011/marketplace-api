@@ -28,7 +28,6 @@ export class AddOrderController extends Controller {
 			return unauthorized();
 		}
 		const {  
-			paymentMethod,
 			products,
 			sellerId
 		} = httpRequest.body;
@@ -42,7 +41,7 @@ export class AddOrderController extends Controller {
 		const order = await this.addOrder.add({
 			products,
 			status: 'pending',
-			paymentMethod,
+			paymentMethod: 'pix',
 			buyerId: payload.userId,
 			sellerId,
 			txId: 'tx_id',

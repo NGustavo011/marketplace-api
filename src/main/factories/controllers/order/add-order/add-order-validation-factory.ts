@@ -5,7 +5,6 @@ import { ValidationComposite } from '../../../../../validation/validators/valida
 export const makeAddOrderValidation = (): Validation => {
 	const validations: Validation[] = [];
 	for (const field of [
-		'paymentMethod',
 		'sellerId',
 		'products',
 		'authorization'

@@ -49,8 +49,8 @@ model Order {
   id            String      @id @default(uuid())
   buyerId       String
   sellerId      String
-  paymentMethod String
-  status        OrderStatus
+  paymentMethod String      @default(dbgenerated("pix"))
+  status        OrderStatus @default(dbgenerated("pending"))
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
   orderItems    OrderItem[]

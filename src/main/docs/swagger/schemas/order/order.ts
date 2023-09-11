@@ -21,6 +21,15 @@ export const orderSchema = {
 		},
 		status: {
 			type: 'string'
+		},
+		txId: {
+			type: 'string'
+		},
+		qrCode: {
+			type: 'string'
+		},
+		qrCodeImage: {
+			type: 'string'
 		}
 	}
 };

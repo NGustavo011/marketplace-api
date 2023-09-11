@@ -1,9 +1,6 @@
 export const addOrderSchema = {
 	type: 'object',
 	properties: {
-		paymentMethod: {
-			type: 'string'
-		},
 		sellerId: {
 			type: 'string'
 		},
