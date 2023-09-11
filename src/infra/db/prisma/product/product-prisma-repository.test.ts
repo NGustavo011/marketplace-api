@@ -35,7 +35,8 @@ describe('ProductPrismaRepository', () => {
 					name: userModel.name,
 					email: userModel.email,
 					password: userModel.password,
-					role: userModel.role
+					role: userModel.role,
+					cpf: userModel.cpf
 				}
 			});
 			const categoryModel = mockCategoryModel();

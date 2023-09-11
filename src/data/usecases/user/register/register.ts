@@ -12,14 +12,15 @@ export class Register implements RegisterContract {
 	) {
 	}
 	async add (user: RegisterParams): Promise<RegisterReturn | null> {
-		const { name, email, password } = user;
+		const { name, email, password, cpf } = user;
 		const userFounded = await this.loadAccountByEmailRepository.loadByEmail(email);
 		if (userFounded) return null;
 		const hashedPassword = await this.hasherRepository.hash(password);
 		const userCreated = await this.registerRepository.add({
 			email,
 			name,
-			password: hashedPassword
+			password: hashedPassword,
+			cpf
 		});
 		return userCreated;
 	}

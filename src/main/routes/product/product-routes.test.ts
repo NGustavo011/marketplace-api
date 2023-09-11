@@ -22,7 +22,8 @@ const mockToken = async (): Promise<UserData> => {
 			name: 'test',
 			email: 'test@gmail.com',
 			password: 'test',
-			role: 'user'
+			role: 'user',
+			cpf: '986.208.638-60'
 		}
 	});
 	return {

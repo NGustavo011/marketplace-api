@@ -18,11 +18,12 @@ export class RegisterController extends Controller {
 	async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
 		const error = await this.validation.validate(httpRequest.body);
 		if(error) return badRequest(error);
-		const { name, email, password } = httpRequest.body;
+		const { name, email, password, cpf } = httpRequest.body;
 		const user = await this.register.add({
 			name,
 			email,
-			password
+			password,
+			cpf
 		});
 		if(!user) { return forbidden(new EmailInUseError()); }
 		const userModel = await this.login.auth({

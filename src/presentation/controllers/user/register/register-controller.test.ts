@@ -17,7 +17,8 @@ const mockRequest = (): HttpRequest => {
 			name: 'any_name',
 			email: 'any_mail@mail.com',
 			password: 'any_password',
-			passwordConfirmation: 'any_password'
+			passwordConfirmation: 'any_password',
+			cpf: '986.208.638-60'
 		}
 	};
 };
@@ -48,7 +49,8 @@ describe('Register Controller', () => {
 			expect(addSpy).toHaveBeenCalledWith({
 				name: mockRequest().body.name,
 				email: mockRequest().body.email,
-				password: mockRequest().body.password
+				password: mockRequest().body.password,
+				cpf: mockRequest().body.cpf
 			});
 		});
 		test('Retorne status de erro 500 se o execute lançar um erro', async () => {

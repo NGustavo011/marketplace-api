@@ -13,14 +13,16 @@ export const mockPrismaOrder = async (): Promise<void> => {
 				name: userModel.name,
 				email: userModel.email,
 				password: userModel.password,
-				role: userModel.role
+				role: userModel.role,
+				cpf: userModel.cpf
 			},
 			{
 				id: 'user_id_2',
 				name: userModel.name,
 				email: userModel.email,
 				password: userModel.password,
-				role: userModel.role
+				role: userModel.role,
+				cpf: userModel.cpf
 			},
 		]
 	});

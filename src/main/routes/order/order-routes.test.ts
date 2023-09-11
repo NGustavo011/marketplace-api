@@ -27,7 +27,8 @@ const mockBuyer = async (): Promise<UserData> => {
 			name: 'buyer',
 			email: 'buyer@gmail.com',
 			password: 'buyer',
-			role: 'user'
+			role: 'user',
+			cpf: '986.208.638-60'
 		}
 	});
 	return {
@@ -42,7 +43,8 @@ const mockSeller = async (): Promise<UserData> => {
 			name: 'seller',
 			email: 'seller@gmail.com',
 			password: 'seller',
-			role: 'user'
+			role: 'user',
+			cpf: '662.903.558-56'
 		}
 	});
 	return {

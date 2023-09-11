@@ -37,7 +37,8 @@ describe('OrderPrismaRepository', ()=>{
 					name: userModel.name,
 					email: userModel.email,
 					password: userModel.password,
-					role: userModel.role
+					role: userModel.role,
+					cpf: userModel.cpf
 				}
 			});
 			const categoryModel = mockCategoryModel();
@@ -84,7 +85,8 @@ describe('OrderPrismaRepository', ()=>{
 					name: userModel.name,
 					email: userModel.email,
 					password: userModel.password,
-					role: userModel.role
+					role: userModel.role,
+					cpf: userModel.cpf
 				}
 			});
 			const categoryModel = mockCategoryModel();
@@ -198,7 +200,8 @@ describe('OrderPrismaRepository', ()=>{
 					name: userModel.name,
 					email: userModel.email,
 					password: userModel.password,
-					role: userModel.role
+					role: userModel.role,
+					cpf: userModel.cpf
 				}
 			});
 			const categoryModel = mockCategoryModel();
@@ -246,14 +249,16 @@ describe('OrderPrismaRepository', ()=>{
 						name: userModel.name,
 						email: userModel.email,
 						password: userModel.password,
-						role: userModel.role
+						role: userModel.role,
+						cpf: userModel.cpf
 					},
 					{
 						id: 'user_id_2',
 						name: userModel.name,
 						email: userModel.email,
 						password: userModel.password,
-						role: userModel.role
+						role: userModel.role,
+						cpf: userModel.cpf
 					}
 				]
 			});

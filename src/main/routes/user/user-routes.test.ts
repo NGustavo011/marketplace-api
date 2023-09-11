@@ -20,7 +20,8 @@ describe('Account Routes', () => {
 				name: 'Gustavo',
 				email: 'gustavo.nogueira@gmail.com',
 				password: '123',
-				passwordConfirmation: '123'
+				passwordConfirmation: '123',
+				cpf: '986.208.638-60'
 			}).expect(200);
 		});
 	});
@@ -32,7 +33,8 @@ describe('Account Routes', () => {
 					name: 'Gustavo',
 					email: 'gustavo.nogueira@gmail.com',
 					password,
-					role: 'user'
+					role: 'user',
+					cpf: '986.208.638-60'
 				}
 			});
 			await request(app).post('/api/login').send({

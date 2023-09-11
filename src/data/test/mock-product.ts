@@ -23,7 +23,8 @@ export const mockProductModel = (): ProductModel => ({
 		email: 'any_seller_email',
 		name: 'any_seller_name',
 		password: 'any_seller_password',
-		role: 'user'
+		role: 'user',
+		cpf: '986.208.638-60'
 	},
 	description: 'any_description',
 	name: 'any_name',

@@ -6,12 +6,13 @@ import { prisma } from '../../../../main/config/prisma';
 
 export class UserPrismaRepository implements RegisterRepository, LoadAccountByEmailRepository {
 	async add (registerParams: Omit<RegisterParams, 'confirmPassword'>): Promise<UserModel> {
-		const { email, name, password } = registerParams;
+		const { email, name, password, cpf } = registerParams;
 		const user = await prisma.user.create({
 			data: {
 				email,
 				name,
 				password,
+				cpf,
 				role: 'user',
 			}
 		});
@@ -20,6 +21,7 @@ export class UserPrismaRepository implements RegisterRepository, LoadAccountByEm
 			email: user.email,
 			name: user.name,
 			password: user.password,
+			cpf: user.cpf,
 			role: user.role
 		};
 	}
@@ -36,6 +38,7 @@ export class UserPrismaRepository implements RegisterRepository, LoadAccountByEm
 			email: user.email,
 			name: user.name,
 			password: user.password,
+			cpf: user.cpf,
 			role: user.role
 		};
 	}

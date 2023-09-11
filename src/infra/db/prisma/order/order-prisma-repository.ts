@@ -62,7 +62,8 @@ export class OrderPrismaRepository implements AddOrderRepository, EditOrderStatu
 				name: orderItem.seller.name,
 				email: orderItem.seller.email,
 				password: orderItem.seller.password,
-				role: orderItem.seller.role
+				role: orderItem.seller.role,
+				cpf: orderItem.seller.cpf
 			}
 		}));
 		return {
@@ -108,7 +109,8 @@ export class OrderPrismaRepository implements AddOrderRepository, EditOrderStatu
 				name: orderItem.seller.name,
 				email: orderItem.seller.email,
 				password: orderItem.seller.password,
-				role: orderItem.seller.role
+				role: orderItem.seller.role,
+				cpf: orderItem.seller.cpf
 			}
 		}));
 		return {
@@ -164,7 +166,8 @@ export class OrderPrismaRepository implements AddOrderRepository, EditOrderStatu
 					name: orderItem.seller.name,
 					email: orderItem.seller.email,
 					password: orderItem.seller.password,
-					role: orderItem.seller.role
+					role: orderItem.seller.role,
+					cpf: orderItem.seller.cpf
 				}
 			}));
 			return {

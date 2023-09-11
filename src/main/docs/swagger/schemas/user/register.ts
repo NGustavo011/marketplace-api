@@ -12,8 +12,11 @@ export const registerSchema = {
 		},
 		confirmPassword: {
 			type: 'string'
+		},
+		cpf: {
+			type: 'string'
 		}
 	},
-	required: ['email', 'name', 'password', 'confirmPassword']
+	required: ['email', 'name', 'password', 'confirmPassword', 'cpf']
 };
   

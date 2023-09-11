@@ -12,7 +12,8 @@ export const mockAuthentication = (): LoginParams => ({
 export const mockRegisterParams = (): RegisterParams => ({
 	name: 'any_name',
 	email: 'any_email',
-	password: 'any_password'
+	password: 'any_password',
+	cpf: '986.208.638-60'
 });
 
 export const mockUserModel = (): UserModel => ({
@@ -20,7 +21,8 @@ export const mockUserModel = (): UserModel => ({
 	name: 'any_name',
 	email: 'any_email',
 	password: 'any_password',
-	role: 'user'
+	role: 'user',
+	cpf: '986.208.638-60'
 });
 
 export const mockRegisterRepository = (): RegisterRepository => {
