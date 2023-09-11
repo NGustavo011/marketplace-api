@@ -1,7 +1,9 @@
 
+import { CpfValidatorAdapter } from '../../../../../infra/validators/cpf-validator/cpf-validator-adapter';
 import { type Validation } from '../../../../../presentation/contracts/validation';
 import { type EmailValidator } from '../../../../../validation/contracts/email-validator';
 import { CompareFieldsValidation } from '../../../../../validation/validators/compare-fields-validation';
+import { CpfValidation } from '../../../../../validation/validators/cpf-validation';
 import { EmailValidation } from '../../../../../validation/validators/email-validation';
 import { RequiredFieldValidation } from '../../../../../validation/validators/required-field-validation';
 import { ValidationComposite } from '../../../../../validation/validators/validation-composite';
@@ -22,11 +24,12 @@ describe('Register Validation Factory', () => {
 	test('Deve chamar o ValidationComposite com todas os validadores', () => {
 		makeRegisterValidation();
 		const validations: Validation[] = [];
-		for (const field of ['name', 'email', 'password', 'passwordConfirmation']) {
+		for (const field of ['name', 'email', 'password', 'passwordConfirmation', 'cpf']) {
 			validations.push(new RequiredFieldValidation(field));
 		}
 		validations.push(new CompareFieldsValidation('password', 'passwordConfirmation'));
 		validations.push(new EmailValidation('email', makeEmailValidator()));
+		validations.push(new CpfValidation('cpf', new CpfValidatorAdapter()));
 		expect(ValidationComposite).toHaveBeenCalledWith(validations);
 	});
 });
