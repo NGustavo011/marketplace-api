@@ -14,4 +14,5 @@ export interface OrderModel {
     txId: string
     qrCode: string
     qrCodeImage: string
+    qrCodeExpiration: Date
 }

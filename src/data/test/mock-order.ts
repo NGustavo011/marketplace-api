@@ -43,7 +43,8 @@ export const mockOrderModel = (): OrderModel => ({
 	status: 'pending',
 	txId: 'any_tx_id',
 	qrCode: 'any_qr_code',
-	qrCodeImage: 'any_qr_code_image'
+	qrCodeImage: 'any_qr_code_image',
+	qrCodeExpiration: new Date()
 });
 
 export const mockAddOrderParams = (): AddOrderParams => ({
@@ -51,10 +52,7 @@ export const mockAddOrderParams = (): AddOrderParams => ({
 	sellerId: 'any_seller_id',
 	paymentMethod: 'any_payment_method',
 	status: 'pending',
-	products: [ { id: 'any_product_id', quantity: 1 } ],
-	txId: 'any_tx_id',
-	qrCode: 'any_qr_code',
-	qrCodeImage: 'any_qr_code_image'
+	products: [ { id: 'any_product_id', quantity: 1 } ]
 });
 
 export const mockEditOrderStatusParams = (): EditOrderStatusParams => ({

@@ -43,10 +43,7 @@ export class AddOrderController extends Controller {
 			status: 'pending',
 			paymentMethod: 'pix',
 			buyerId: payload.userId,
-			sellerId,
-			txId: 'tx_id',
-			qrCode: 'qr_code',
-			qrCodeImage: 'qr_code_image'
+			sellerId
 		});
 		return ok(order);
 	}

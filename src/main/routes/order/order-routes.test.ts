@@ -87,7 +87,8 @@ const mockOrder = async ({buyerId, sellerId, categoryId}: MockOrderParams): Prom
 			status: 'pending',
 			txId: '123',
 			qrCode: '123',
-			qrCodeImage: '123'
+			qrCodeImage: '123',
+			qrCodeExpiration: new Date()
 		}
 	});
 	await prisma.orderItem.create({

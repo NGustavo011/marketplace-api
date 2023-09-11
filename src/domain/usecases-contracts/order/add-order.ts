@@ -7,7 +7,7 @@ export type OrderProducts = {
     }[]
 }
 
-export type AddOrderParams = Omit<OrderModel, 'id' | 'orderItems'> & OrderProducts
+export type AddOrderParams = Omit<OrderModel, 'id' | 'orderItems' | 'txId' | 'qrCode' | 'qrCodeImage' | 'qrCodeExpiration'> & OrderProducts
 export type AddOrderReturn = OrderModel
 
 export interface AddOrderContract {

@@ -6,7 +6,18 @@ export class AddOrder implements AddOrderContract {
 	}
 
 	async add(addOrderParams: AddOrderParams): Promise<AddOrderReturn | null>{
-		const order = this.addOrderRepository.add(addOrderParams);
+		const { buyerId, paymentMethod, products, sellerId, status } = addOrderParams;
+		const order = this.addOrderRepository.add({
+			buyerId,
+			sellerId,
+			paymentMethod,
+			products,
+			status,
+			txId: '',
+			qrCode: '',
+			qrCodeImage: '',
+			qrCodeExpiration: new Date()
+		});
 		return order;
 	}
 }

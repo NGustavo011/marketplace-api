@@ -1,5 +1,4 @@
 import { mockCategoryModel } from '../../../../data/test/mock-category';
-import { mockAddOrderParams } from '../../../../data/test/mock-order';
 import { mockProductModel } from '../../../../data/test/mock-product';
 import { mockUserModel } from '../../../../data/test/mock-user';
 import { AddOrderReturn } from '../../../../domain/usecases-contracts/order/add-order';
@@ -8,7 +7,7 @@ import { GetOrderReturn } from '../../../../domain/usecases-contracts/order/get-
 import { ValidateOrderSellerReturn } from '../../../../domain/usecases-contracts/order/validate-order-seller';
 import { prisma } from '../../../../main/config/prisma';
 import { clearDatabase } from '../../../test/prisma/clear-database';
-import { mockPrismaOrder } from '../../../test/prisma/order';
+import { mockAddOrderRepositoryParams, mockPrismaOrder } from '../../../test/prisma/order';
 import { OrderPrismaRepository } from './order-prisma-repository';
 
 const makeSut = (): OrderPrismaRepository => {
@@ -29,7 +28,7 @@ describe('OrderPrismaRepository', ()=>{
 	describe('add()', ()=>{
 		test('Deve retornar um pedido em caso de sucesso no método de add', async () => {
 			const sut = makeSut();
-			const addOrderParams = mockAddOrderParams();
+			const addOrderParams = mockAddOrderRepositoryParams();
 			const userModel = mockUserModel();
 			const user = await prisma.user.create({
 				data: {
@@ -76,7 +75,7 @@ describe('OrderPrismaRepository', ()=>{
 
 		test('Deve criar o pedido sem um item passado se o mesmo não for localizado no banco', async () => {
 			const sut = makeSut();
-			const addOrderParams = mockAddOrderParams();
+			const addOrderParams = mockAddOrderRepositoryParams();
 			addOrderParams.products = [...addOrderParams.products, {id: 'invalidId', quantity: 1}];
 			const userModel = mockUserModel();
 			const user = await prisma.user.create({
@@ -192,7 +191,7 @@ describe('OrderPrismaRepository', ()=>{
 	describe('validateSeller()', ()=>{
 		test('Deve retornar true em caso de sucesso no método de validateSeller', async () => {
 			const sut = makeSut();
-			const addOrderParams = mockAddOrderParams();
+			const addOrderParams = mockAddOrderRepositoryParams();
 			const userModel = mockUserModel();
 			const user = await prisma.user.create({
 				data: {
@@ -238,7 +237,7 @@ describe('OrderPrismaRepository', ()=>{
 		});
 		test('Deve retornar false em caso de validateSeller encontrar um produto que não pertence ao sellerId especificado', async () => {
 			const sut = makeSut();
-			const addOrderParams = mockAddOrderParams();
+			const addOrderParams = mockAddOrderRepositoryParams();
 			addOrderParams.products = [...addOrderParams.products, {id: 'product_id_2', quantity: 1}];
 			const userModel = mockUserModel();
 			await prisma.user.createMany({

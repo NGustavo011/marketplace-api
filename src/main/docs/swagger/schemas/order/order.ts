@@ -30,6 +30,9 @@ export const orderSchema = {
 		},
 		qrCodeImage: {
 			type: 'string'
+		},
+		qrCodeExpiration: {
+			type: 'date'
 		}
 	}
 };

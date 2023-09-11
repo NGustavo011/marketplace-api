@@ -11,6 +11,7 @@ import { badRequest, unauthorized, serverError, ok } from '../../../helpers/http
 import { mockEditOrderStatus } from '../../../test/mock-order';
 import { mockValidateToken } from '../../../test/mock-user';
 import { EditOrderStatusController } from './edit-order-status-controller';
+import MockDate from 'mockdate';
 
 const mockRequest = (): HttpRequest => {
 	return {
@@ -47,6 +48,12 @@ const makeSut = (): SutTypes => {
 };
 
 describe('EditOrderStatus Controller', () => {
+	beforeAll(() => {
+		MockDate.set(new Date());
+	});
+	afterAll(() => {
+		MockDate.reset();
+	});
 	describe('Validation dependency', () => {
 		test('Deve chamar o Validation com valores corretos', async () => {
 			const { sut, validationStub } = makeSut();

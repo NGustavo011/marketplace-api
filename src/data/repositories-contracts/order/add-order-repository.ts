@@ -3,11 +3,12 @@ import { AddOrderParams, AddOrderReturn } from '../../../domain/usecases-contrac
 export type Payment = {
   txId: string,
   qrCode: string,
-  qrCodeImage: string 
+  qrCodeImage: string,
+  qrCodeExpiration: Date
 }
 
-export type AddOrderParamsRepository = AddOrderParams & Payment
+export type AddOrderRepositoryParams = AddOrderParams & Payment
 
 export interface AddOrderRepository {
-  add: (addOrderParamsRepository: AddOrderParamsRepository) => Promise<AddOrderReturn | null>
+  add: (addOrderRepositoryParams: AddOrderRepositoryParams) => Promise<AddOrderReturn | null>
 }

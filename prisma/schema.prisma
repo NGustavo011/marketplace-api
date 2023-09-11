@@ -46,17 +46,18 @@ model Product {
 }
 
 model Order {
-  id            String      @id @default(uuid())
-  buyerId       String
-  sellerId      String
-  paymentMethod String      @default(dbgenerated("pix"))
-  status        OrderStatus @default(dbgenerated("pending"))
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-  orderItems    OrderItem[]
-  txId          String
-  qrCode        String
-  qrCodeImage   String
+  id               String      @id @default(uuid())
+  buyerId          String
+  sellerId         String
+  paymentMethod    String
+  status           OrderStatus
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+  orderItems       OrderItem[]
+  txId             String
+  qrCode           String
+  qrCodeImage      String
+  qrCodeExpiration DateTime
 }
 
 model OrderItem {

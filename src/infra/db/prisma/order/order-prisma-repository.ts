@@ -1,4 +1,4 @@
-import { AddOrderParamsRepository, AddOrderRepository } from '../../../../data/repositories-contracts/order/add-order-repository';
+import { AddOrderRepositoryParams, AddOrderRepository } from '../../../../data/repositories-contracts/order/add-order-repository';
 import { EditOrderStatusRepository } from '../../../../data/repositories-contracts/order/edit-order-status-repository';
 import { GetOrderRepository } from '../../../../data/repositories-contracts/order/get-order-repository';
 import { ValidateOrderSellerRepository } from '../../../../data/repositories-contracts/order/validate-order-seller-repository';
@@ -10,8 +10,8 @@ import { ValidateOrderSellerParams, ValidateOrderSellerReturn } from '../../../.
 import { prisma } from '../../../../main/config/prisma';
 
 export class OrderPrismaRepository implements AddOrderRepository, EditOrderStatusRepository, GetOrderRepository, ValidateOrderSellerRepository {
-	async add (addOrderParamsRepository: AddOrderParamsRepository): Promise<AddOrderReturn | null> {
-		const { buyerId, sellerId, paymentMethod, status, products, txId, qrCode, qrCodeImage } = addOrderParamsRepository;
+	async add (addOrderRepositoryParams: AddOrderRepositoryParams): Promise<AddOrderReturn | null> {
+		const { buyerId, sellerId, paymentMethod, status, products, txId, qrCode, qrCodeImage, qrCodeExpiration } = addOrderRepositoryParams;
 		const order = await prisma.order.create({
 			data: {
 				buyerId,
@@ -20,7 +20,8 @@ export class OrderPrismaRepository implements AddOrderRepository, EditOrderStatu
 				status,
 				txId,
 				qrCode,
-				qrCodeImage
+				qrCodeImage,
+				qrCodeExpiration
 			}
 		});
 		for(const product of products) {
@@ -78,7 +79,8 @@ export class OrderPrismaRepository implements AddOrderRepository, EditOrderStatu
 			orderItems: orderItemsFormated,
 			txId: orderInBd.txId,
 			qrCode: orderInBd.qrCodeImage,
-			qrCodeImage: orderInBd.qrCodeImage
+			qrCodeImage: orderInBd.qrCodeImage,
+			qrCodeExpiration: orderInBd.qrCodeExpiration
 		};
 	}
 	async edit (editOrderStatusParams: EditOrderStatusParams): Promise<EditOrderStatusReturn | null>{
@@ -128,7 +130,8 @@ export class OrderPrismaRepository implements AddOrderRepository, EditOrderStatu
 			orderItems: orderItemsFormated,
 			txId: orderEdited.txId,
 			qrCode: orderEdited.qrCode,
-			qrCodeImage: orderEdited.qrCodeImage
+			qrCodeImage: orderEdited.qrCodeImage,
+			qrCodeExpiration: orderEdited.qrCodeExpiration
 		};
 	}
 	async get (getOrderParams: GetOrderParams): Promise<GetOrderReturn | null>{
@@ -188,7 +191,8 @@ export class OrderPrismaRepository implements AddOrderRepository, EditOrderStatu
 				orderItems: orderItemsFormated,
 				txId: order.txId,
 				qrCode: order.qrCode,
-				qrCodeImage: order.qrCodeImage
+				qrCodeImage: order.qrCodeImage,
+				qrCodeExpiration: order.qrCodeExpiration
 			};
 		});
 		return ordersFormated;

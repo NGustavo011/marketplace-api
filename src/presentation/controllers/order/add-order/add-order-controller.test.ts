@@ -117,10 +117,7 @@ describe('AddOrder Controller', () => {
 				status: 'pending',
 				paymentMethod: 'pix',
 				buyerId: 'any_user_id',
-				sellerId: httpRequest.body.sellerId,
-				txId: 'tx_id',
-				qrCode: 'qr_code',
-				qrCodeImage: 'qr_code_image',
+				sellerId: httpRequest.body.sellerId
 			});
 		});
 		test('Deve retornar 500 se AddOrder lançar uma exceção', async () => {

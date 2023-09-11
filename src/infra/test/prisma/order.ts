@@ -1,8 +1,20 @@
+import { AddOrderRepositoryParams } from '../../../data/repositories-contracts/order/add-order-repository';
 import { mockCategoryModel } from '../../../data/test/mock-category';
 import { mockProductModel } from '../../../data/test/mock-product';
 import { mockUserModel } from '../../../data/test/mock-user';
 import { prisma } from '../../../main/config/prisma';
 
+export const mockAddOrderRepositoryParams = (): AddOrderRepositoryParams => ({
+	buyerId: 'any_buyer_id',
+	sellerId: 'any_seller_id',
+	paymentMethod: 'any_payment_method',
+	status: 'pending',
+	products: [ { id: 'any_product_id', quantity: 1 } ],
+	qrCode: 'any_qr_code',
+	qrCodeExpiration: new Date(),
+	qrCodeImage: 'any_qr_code_image',
+	txId: 'any_txId'
+});
 
 export const mockPrismaOrder = async (): Promise<void> => {
 	const userModel = mockUserModel();
@@ -88,7 +100,8 @@ export const mockPrismaOrder = async (): Promise<void> => {
 				status: 'pending',
 				txId: 'tx_id_1',
 				qrCode: 'qr_code_1',
-				qrCodeImage: 'qr_code_image_1'
+				qrCodeImage: 'qr_code_image_1',
+				qrCodeExpiration: new Date()
 			},
 			{
 				id: 'order_id_2',
@@ -98,7 +111,8 @@ export const mockPrismaOrder = async (): Promise<void> => {
 				status: 'finished',
 				txId: 'tx_id_2',
 				qrCode: 'qr_code_2',
-				qrCodeImage: 'qr_code_image_2'
+				qrCodeImage: 'qr_code_image_2',
+				qrCodeExpiration: new Date()
 			},
 			{
 				id: 'order_id_3',
@@ -108,7 +122,8 @@ export const mockPrismaOrder = async (): Promise<void> => {
 				status: 'finished',
 				txId: 'tx_id_3',
 				qrCode: 'qr_code_3',
-				qrCodeImage: 'qr_code_image_3'
+				qrCodeImage: 'qr_code_image_3',
+				qrCodeExpiration: new Date()
 			}
 		]
 	});
