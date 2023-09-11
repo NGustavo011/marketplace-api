@@ -163,10 +163,10 @@ describe('OrderPrismaRepository', ()=>{
 		test('Deve retornar um pedido em caso de especificar o paymentMethod', async () => {
 			const sut = makeSut();
 			await mockPrismaOrder();
-			const orders = await sut.get({ userId: 'user_id_1', paymentMethod: 'money' }) as GetOrderReturn;
+			const orders = await sut.get({ userId: 'user_id_1', paymentMethod: 'pix' }) as GetOrderReturn;
 			expect(orders).toBeTruthy();
-			expect(orders).toHaveLength(1);
-			expect(orders[0].id).toBe('order_id_3');
+			expect(orders).toHaveLength(3);
+			expect(orders[0].id).toBe('order_id_1');
 		});
 		test('Deve retornar dois pedidos em caso de especificar o status', async () => {
 			const sut = makeSut();
@@ -184,7 +184,7 @@ describe('OrderPrismaRepository', ()=>{
 			expect(orders).toBeTruthy();
 			expect(orders).toHaveLength(1);
 			expect(orders[0].id).toBe('order_id_1');
-			expect(orders[0].paymentMethod).toBe('credit');
+			expect(orders[0].paymentMethod).toBe('pix');
 			expect(orders[0].status).toBe('pending');
 		});
 	});

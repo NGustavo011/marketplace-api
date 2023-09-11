@@ -84,22 +84,31 @@ export const mockPrismaOrder = async (): Promise<void> => {
 				id: 'order_id_1',
 				buyerId: 'user_id_1',
 				sellerId: 'user_id_2',
-				paymentMethod: 'credit',
+				paymentMethod: 'pix',
 				status: 'pending',
+				txId: 'tx_id_1',
+				qrCode: 'qr_code_1',
+				qrCodeImage: 'qr_code_image_1'
 			},
 			{
 				id: 'order_id_2',
 				buyerId: 'user_id_1',
 				sellerId: 'user_id_2',
-				paymentMethod: 'credit',
+				paymentMethod: 'pix',
 				status: 'finished',
+				txId: 'tx_id_2',
+				qrCode: 'qr_code_2',
+				qrCodeImage: 'qr_code_image_2'
 			},
 			{
 				id: 'order_id_3',
 				buyerId: 'user_id_2',
 				sellerId: 'user_id_1',
-				paymentMethod: 'money',
+				paymentMethod: 'pix',
 				status: 'finished',
+				txId: 'tx_id_3',
+				qrCode: 'qr_code_3',
+				qrCodeImage: 'qr_code_image_3'
 			}
 		]
 	});

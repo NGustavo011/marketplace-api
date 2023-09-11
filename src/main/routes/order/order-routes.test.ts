@@ -83,8 +83,11 @@ const mockOrder = async ({buyerId, sellerId, categoryId}: MockOrderParams): Prom
 		data: {
 			buyerId,
 			sellerId,
-			paymentMethod: 'credit',
+			paymentMethod: 'pix',
 			status: 'pending',
+			txId: '123',
+			qrCode: '123',
+			qrCodeImage: '123'
 		}
 	});
 	await prisma.orderItem.create({

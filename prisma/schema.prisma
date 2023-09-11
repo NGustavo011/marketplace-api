@@ -54,6 +54,9 @@ model Order {
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
   orderItems    OrderItem[]
+  txId          String
+  qrCode        String
+  qrCodeImage   String
 }
 
 model OrderItem {

@@ -10,5 +10,8 @@ export interface OrderModel {
     sellerId: string
     orderItems: OrderItemModel[]
     paymentMethod: string
-    status: OrderStatusModel
+    status: OrderStatusModel,
+    txId: string
+    qrCode: string
+    qrCodeImage: string
 }
