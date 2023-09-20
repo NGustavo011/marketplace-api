@@ -1,14 +1,16 @@
 import { AddProductRepository } from '../../../../data/repositories-contracts/product/add-product-repository';
+import { CalculateTotalValueRepository } from '../../../../data/repositories-contracts/product/calculate-total-value-repository';
 import { DeleteProductRepository } from '../../../../data/repositories-contracts/product/delete-product-repository';
 import { EditProductRepository } from '../../../../data/repositories-contracts/product/edit-product-repository';
 import { GetProductRepository } from '../../../../data/repositories-contracts/product/get-product-repository';
+import { OrderProducts } from '../../../../domain/usecases-contracts/order/add-order';
 import { AddProductParams, AddProductReturn } from '../../../../domain/usecases-contracts/product/add-product';
 import { DeleteProductParams } from '../../../../domain/usecases-contracts/product/delete-product';
 import { EditProductParams, EditProductReturn } from '../../../../domain/usecases-contracts/product/edit-product';
 import { GetProductParams, GetProductReturn } from '../../../../domain/usecases-contracts/product/get-product';
 import { prisma } from '../../../../main/config/prisma';
 
-export class ProductPrismaRepository implements AddProductRepository, DeleteProductRepository, EditProductRepository, GetProductRepository {
+export class ProductPrismaRepository implements AddProductRepository, DeleteProductRepository, EditProductRepository, GetProductRepository, CalculateTotalValueRepository {
 	async add (addProductParams: AddProductParams): Promise<AddProductReturn | null>{
 		const { name, description, listPrice, salePrice, urlImage, categoryId, userId} = addProductParams;
 		const product = await prisma.product.create({
@@ -99,5 +101,20 @@ export class ProductPrismaRepository implements AddProductRepository, DeleteProd
 			seller: product.seller
 		}));
 		return productsFormated;
+	}
+
+	async calculate (orderProducts: OrderProducts): Promise<number>{
+		let total = 0;
+		for(const product of orderProducts.products){
+			const productFounded = await prisma.product.findUnique({
+				where: {
+					id: product.id,
+				}
+			});
+			if(productFounded){
+				total += (Number(productFounded.listPrice) * product.quantity);
+			}
+		}
+		return total;
 	}
 }

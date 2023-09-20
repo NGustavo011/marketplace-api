@@ -9,5 +9,6 @@ export default {
 	certificationPath: process.env.CERTIFICATION_PATH ?? __dirname + '../../../certification/homologacao-493643-marketplace-api-certificado.p12',
 	gnClientId: process.env.GN_CLIENT_ID ?? '',
 	gnSecretKey: process.env.GN_SECRET_KEY ?? '',
-	gnPixKey: process.env.GN_PIX_KEY ?? 'b51951f8-3f0c-4876-8433-e0020e958b98'
+	gnPixKey: process.env.GN_PIX_KEY ?? 'b51951f8-3f0c-4876-8433-e0020e958b98',
+	pixDuration: process.env.PIX_DURATION ?? 3600
 };

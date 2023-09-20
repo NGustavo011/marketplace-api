@@ -4,8 +4,10 @@ import { AddOrderParams, AddOrderReturn } from '../../domain/usecases-contracts/
 import { EditOrderStatusParams, EditOrderStatusReturn } from '../../domain/usecases-contracts/order/edit-order-status';
 import { GetOrderParams, GetOrderReturn } from '../../domain/usecases-contracts/order/get-order';
 import { ValidateOrderSellerParams } from '../../domain/usecases-contracts/order/validate-order-seller';
+import env from '../../main/config/env';
 import { AddOrderRepository } from '../repositories-contracts/order/add-order-repository';
 import { EditOrderStatusRepository } from '../repositories-contracts/order/edit-order-status-repository';
+import { CreateChargePixReturn, GeneratePixRepository } from '../repositories-contracts/order/generate-pix-repository';
 import { GetOrderRepository } from '../repositories-contracts/order/get-order-repository';
 import { ValidateOrderSellerRepository } from '../repositories-contracts/order/validate-order-seller-repository';
 
@@ -44,7 +46,7 @@ export const mockOrderModel = (): OrderModel => ({
 	txId: 'any_tx_id',
 	qrCode: 'any_qr_code',
 	qrCodeImage: 'any_qr_code_image',
-	qrCodeExpiration: new Date()
+	qrCodeExpiration: new Date(new Date().getTime() + Number(env.pixDuration))
 });
 
 export const mockAddOrderParams = (): AddOrderParams => ({
@@ -114,4 +116,20 @@ export const mockValidateOrderSellerRepository = (): ValidateOrderSellerReposito
 		}
 	}
 	return new ValidateOrderSellerRepositoryStub();
+};
+
+export const mockGeneratePixRepository = (): GeneratePixRepository => {
+	class GeneratePixRepositoryStub implements GeneratePixRepository {
+		async createChargePix(): Promise<string>{
+			return await Promise.resolve('locId');
+		}
+		async generateQrCode (): Promise<CreateChargePixReturn>{
+			return await Promise.resolve({
+				txId: 'any_tx_id',
+				qrCode: 'any_qr_code',
+				qrCodeImage: 'any_qr_code_image'
+			});
+		}
+	}
+	return new GeneratePixRepositoryStub();
 };

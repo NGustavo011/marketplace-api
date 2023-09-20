@@ -8,8 +8,6 @@ const makeSut = (): GnApiAdapter => {
 };
 
 const mockCreateChargePixParams = (): CreateChargePixParams => ({
-	name: 'any_name',
-	cpf: '540.418.240-79',
 	value: 1,
 	duration: 3600
 });
@@ -32,10 +30,6 @@ describe('GnApi Adapter', () => {
 			const body = {
 				'calendario': {
 					'expiracao': createChargePixParams.duration
-				},
-				'devedor': {
-					'cpf': createChargePixParams.cpf.replace(/\D/g, ''),
-					'nome': createChargePixParams.name
 				},
 				'valor': {
 					original: createChargePixParams.value.toFixed(2)
@@ -80,9 +74,9 @@ describe('GnApi Adapter', () => {
 		test('Deve retornar no método generateQrCode, dados de pix em caso de sucesso', async () => {
 			const sut = makeSut();
 			jest.spyOn(gerencianet, 'pixGenerateQRCode').mockReturnValueOnce(await Promise.resolve({
-				qrCode: 'any_qr_code',
-				qrCodeImage: 'any_qr_code_image',
-				txId: 'any_tx_id'
+				qrcode: 'any_qr_code',
+				imagemQrcode: 'any_qr_code_image',
+				linkVisualizacao: 'any_tx_id'
 			}));
 			const pixData = await sut.generateQrCode('locId');
 			expect(pixData).toEqual({

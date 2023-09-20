@@ -5,6 +5,7 @@ import { EditProductParams, EditProductReturn } from '../../domain/usecases-cont
 import { GetProductParams, GetProductReturn } from '../../domain/usecases-contracts/product/get-product';
 import { ValidateProductPriceParams } from '../../domain/usecases-contracts/product/validate-product-price';
 import { AddProductRepository } from '../repositories-contracts/product/add-product-repository';
+import { CalculateTotalValueRepository } from '../repositories-contracts/product/calculate-total-value-repository';
 import { DeleteProductRepository } from '../repositories-contracts/product/delete-product-repository';
 import { EditProductRepository } from '../repositories-contracts/product/edit-product-repository';
 import { GetProductRepository } from '../repositories-contracts/product/get-product-repository';
@@ -29,8 +30,8 @@ export const mockProductModel = (): ProductModel => ({
 	description: 'any_description',
 	name: 'any_name',
 	urlImage: 'any_url_image',
-	listPrice: 0,
-	salePrice: 0
+	listPrice: 10,
+	salePrice: 10
 });
 
 export const mockGetProductParams = (): GetProductParams => ({
@@ -104,4 +105,13 @@ export const mockDeleteProductRepository = (): DeleteProductRepository => {
 		}
 	}
 	return new DeleteProductRepositoryStub();
+};
+
+export const mockCalculateTotalValueRepository = (): CalculateTotalValueRepository => {
+	class CalculateTotalValueRepositoryStub implements CalculateTotalValueRepository {
+		async calculate (): Promise<number>{
+			return await Promise.resolve(100);
+		}
+	}
+	return new CalculateTotalValueRepositoryStub();
 };

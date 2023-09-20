@@ -1,6 +1,4 @@
 export type CreateChargePixParams = {
-    cpf: string
-    name: string
     value: number
     duration: number
 }
@@ -12,6 +10,6 @@ export type CreateChargePixReturn = {
 }
 
 export interface GeneratePixRepository {
-  createChargePix: (createChargePixParams: CreateChargePixParams) => Promise<string | null>
-  generateQrCode: (locId: string) => Promise<CreateChargePixReturn | null>
+  createChargePix: (createChargePixParams: CreateChargePixParams) => Promise<string>
+  generateQrCode: (locId: string) => Promise<CreateChargePixReturn>
 }

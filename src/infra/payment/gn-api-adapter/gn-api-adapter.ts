@@ -8,15 +8,11 @@ export class GnApiAdapter implements GeneratePixRepository {
 	constructor(){
 		this.gerencianet = GerencianetFactory.create();
 	}
-	async createChargePix(createChargePixParams: CreateChargePixParams): Promise<string | null>{
-		const { name, cpf, value, duration } = createChargePixParams;
+	async createChargePix(createChargePixParams: CreateChargePixParams): Promise<string>{
+		const { value, duration } = createChargePixParams;
 		const body = {
 			'calendario': {
 				'expiracao': duration
-			},
-			'devedor': {
-				'cpf': cpf.replace(/\D/g, ''),
-				'nome': name
 			},
 			'valor': {
 				original: value.toFixed(2)
@@ -26,11 +22,15 @@ export class GnApiAdapter implements GeneratePixRepository {
 		const response = await this.gerencianet.pixCreateImmediateCharge([], body);
 		return response.loc.id;
 	}
-	async generateQrCode(locId: string): Promise<CreateChargePixReturn | null>{
+	async generateQrCode(locId: string): Promise<CreateChargePixReturn>{
 		const params = {
 			id: locId
 		};
 		const response = await this.gerencianet.pixGenerateQRCode(params);
-		return response;
+		return {
+			qrCode: response.qrcode,
+			qrCodeImage: response.imagemQrcode,
+			txId: response.linkVisualizacao
+		};
 	}
 }

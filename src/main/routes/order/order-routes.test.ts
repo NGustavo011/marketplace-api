@@ -138,7 +138,7 @@ describe('Product Routes', () => {
 				products: [
 					{
 						id: productId,
-						quantity: 0
+						quantity: 1
 					}
 				]
 			}).expect(200);

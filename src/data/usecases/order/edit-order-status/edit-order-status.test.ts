@@ -2,9 +2,7 @@ import { throwError } from '../../../../domain/test/test-helpers';
 import { EditOrderStatusRepository } from '../../../repositories-contracts/order/edit-order-status-repository';
 import { mockEditOrderStatusParams, mockEditOrderStatusRepository, mockOrderModel } from '../../../test/mock-order';
 import { EditOrderStatus } from './edit-order-status';
-
-
-
+import MockDate from 'mockdate';
 
 interface SutTypes {
     editOrderStatusRepositoryStub: EditOrderStatusRepository
@@ -21,6 +19,12 @@ const makeSut = (): SutTypes => {
 };
 
 describe('EditOrderStatus usecase', ()=>{
+	beforeAll(() => {
+		MockDate.set(new Date());
+	});
+	afterAll(() => {
+		MockDate.reset();
+	});
 	describe('EditOrderStatusRepository dependency', ()=>{
 		test('Deve chamar EditOrderStatusRepository com os valores corretos', async ()=>{
 			const { sut, editOrderStatusRepositoryStub } = makeSut();

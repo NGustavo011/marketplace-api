@@ -148,4 +148,42 @@ describe('ProductPrismaRepository', () => {
 			expect(products[0].id).toBe('product_id_1');
 		});
 	});
+
+	describe('calculate()', ()=>{
+		test('Deve retornar o total esperado dos produtos selecionados de acordo com suas quantidades', async () => {
+			const sut = makeSut();
+			await mockPrismaProduct();
+			const totalValue = await sut.calculate({
+				products: [
+					{
+						id: 'product_id_1',
+						quantity: 2
+					},
+					{
+						id: 'product_id_2',
+						quantity: 1
+					}
+				]
+			}) ;
+			expect(totalValue).toBe(30);
+		});
+		test('Deve retornar o total esperado dos produtos selecionados de acordo com suas quantidades. NÃO considerando na soma, produtos não encontrados', async () => {
+			const sut = makeSut();
+			await mockPrismaProduct();
+			const totalValue = await sut.calculate({
+				products: [
+					{
+						id: 'product_id_1',
+						quantity: 2
+					},
+					{
+						id: 'product_id_8',
+						quantity: 1
+					}
+				]
+			}) ;
+			expect(totalValue).toBe(20);
+		});
+		
+	});
 });
