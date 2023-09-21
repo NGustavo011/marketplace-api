@@ -1,6 +1,6 @@
 import { mockRegisterParams } from '../../../../data/test/mock-user';
 import { prisma } from '../../../../main/config/prisma';
-import { mockPrismaUser } from '../../../test/prisma/user';
+import { mockPrismaUser, mockPrismaUserWithPixKey } from '../../../test/prisma/user';
 import { clearDatabase } from '../../../test/prisma/clear-database';
 import { UserPrismaRepository } from './user-prisma-repository';
 
@@ -45,5 +45,25 @@ describe('UserPrismaRepository', () => {
 			const user = await sut.loadByEmail('any_email');
 			expect(user).toBeNull();
 		});
+	});
+	describe('checkUserHasPixKey()', () => {
+		test('Deve retornar null em caso de não encontrar o usuário pelo id no método de checkUserHasPixKey', async () => {
+			const sut = makeSut();
+			const user = await sut.checkUserHasPixKey('any_id');
+			expect(user).toBeNull();
+		});
+		test('Deve retornar false em caso de o usuário não possuir pixKey no método de checkUserHasPixKey', async () => {
+			const sut = makeSut();
+			await mockPrismaUser();
+			const userHasPixKey = await sut.checkUserHasPixKey('user_id');
+			expect(userHasPixKey).toBeFalsy();
+		});
+		test('Deve retornar true em caso de o usuário possuir pixKey no método de checkUserHasPixKey', async () => {
+			const sut = makeSut();
+			await mockPrismaUserWithPixKey();
+			const userHasPixKey = await sut.checkUserHasPixKey('user_id_with_pix_key');
+			expect(userHasPixKey).toBeTruthy();
+		});
+		
 	});
 });

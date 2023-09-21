@@ -23,7 +23,8 @@ const mockToken = async (): Promise<UserData> => {
 			email: 'test@gmail.com',
 			password: 'test',
 			role: 'user',
-			cpf: '986.208.638-60'
+			cpf: '986.208.638-60',
+			pixKey: 'test_pix_key'
 		}
 	});
 	return {

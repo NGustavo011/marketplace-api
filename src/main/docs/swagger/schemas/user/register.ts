@@ -15,6 +15,9 @@ export const registerSchema = {
 		},
 		cpf: {
 			type: 'string'
+		},
+		pixKey: {
+			type: 'string'
 		}
 	},
 	required: ['email', 'name', 'password', 'confirmPassword', 'cpf']

@@ -2,15 +2,17 @@ import { mockProductModel } from '../../../../data/test/mock-product';
 import { throwError } from '../../../../domain/test/test-helpers';
 import { AddProductContract } from '../../../../domain/usecases-contracts/product/add-product';
 import { ValidateProductPriceContract } from '../../../../domain/usecases-contracts/product/validate-product-price';
+import { CheckUserHasPixKeyContract } from '../../../../domain/usecases-contracts/user/check-user-has-pix-key';
 import { ValidateTokenContract } from '../../../../domain/usecases-contracts/user/validate-token';
 import { mockValidation } from '../../../../validation/test/mock-validation';
 import { HttpRequest } from '../../../contracts/http';
 import { Validation } from '../../../contracts/validation';
 import { InvalidProductPriceError } from '../../../errors/invalid-product-price-error';
 import { MissingParamError } from '../../../errors/missing-param-error';
+import { UserDoesNotHavePixKeyError } from '../../../errors/user-does-not-have-pix-key-error';
 import { badRequest, ok, serverError, unauthorized } from '../../../helpers/http/http-helper';
 import { mockAddProduct, mockValidateProductPrice } from '../../../test/mock-product';
-import { mockValidateToken } from '../../../test/mock-user';
+import { mockCheckUserHasPixKey, mockValidateToken } from '../../../test/mock-user';
 import { AddProductController } from './add-product-controller';
 
 
@@ -34,6 +36,7 @@ const mockRequest = (): HttpRequest => {
 interface SutTypes {
   sut: AddProductController
   addProductStub: AddProductContract,
+  checkUserHasPixKeyStub: CheckUserHasPixKeyContract,
   validateProductPriceStub: ValidateProductPriceContract,
   validateTokenStub: ValidateTokenContract,
   validationStub: Validation
@@ -41,13 +44,15 @@ interface SutTypes {
 
 const makeSut = (): SutTypes => {
 	const addProductStub = mockAddProduct();
+	const checkUserHasPixKeyStub = mockCheckUserHasPixKey();
 	const validateProductPriceStub = mockValidateProductPrice();
 	const validateTokenStub = mockValidateToken();
 	const validationStub = mockValidation(); 
-	const sut = new AddProductController(addProductStub, validateProductPriceStub, validateTokenStub, validationStub);
+	const sut = new AddProductController(addProductStub, checkUserHasPixKeyStub, validateProductPriceStub, validateTokenStub, validationStub);
 	return {
 		sut,
 		addProductStub,
+		checkUserHasPixKeyStub,
 		validateProductPriceStub,
 		validateTokenStub,
 		validationStub
@@ -75,6 +80,21 @@ describe('AddProduct Controller', () => {
 			jest.spyOn(addProductStub, 'add').mockImplementationOnce(throwError);
 			const httpResponse = await sut.execute(mockRequest());
 			expect(httpResponse).toEqual(serverError(new Error()));
+		});
+	});
+	describe('CheckUserHasPixKey dependency', () => {
+		test('Deve chamar o CheckUserHasPixKey com valores corretos', async () => {
+			const { sut, checkUserHasPixKeyStub } = makeSut();
+			const checkSpy = jest.spyOn(checkUserHasPixKeyStub, 'check');
+			const httpRequest = mockRequest();
+			await sut.execute(httpRequest);
+			expect(checkSpy).toHaveBeenCalledWith('any_user_id');
+		});
+		test('Retorne status 400 se o CheckUserHasPixKey retornar false', async () => {
+			const { sut, checkUserHasPixKeyStub } = makeSut();
+			jest.spyOn(checkUserHasPixKeyStub, 'check').mockReturnValueOnce(Promise.resolve(false));
+			const httpResponse = await sut.execute(mockRequest());
+			expect(httpResponse).toEqual(badRequest(new UserDoesNotHavePixKeyError()));
 		});
 	});
 	describe('ValidateProductPrice dependency', () => {

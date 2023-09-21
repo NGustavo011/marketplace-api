@@ -18,6 +18,9 @@ export const userSchema = {
 		},
 		role: {
 			type: 'string'
+		},
+		pixKey: {
+			type: 'string'
 		}
 	}
 };

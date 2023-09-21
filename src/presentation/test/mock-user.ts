@@ -1,4 +1,5 @@
 import { mockUserModel } from '../../data/test/mock-user';
+import { CheckUserHasPixKeyContract } from '../../domain/usecases-contracts/user/check-user-has-pix-key';
 import { LoginContract, LoginReturn } from '../../domain/usecases-contracts/user/login';
 import { RegisterContract, RegisterReturn } from '../../domain/usecases-contracts/user/register';
 import { DecrypterPayload, ValidateTokenContract } from '../../domain/usecases-contracts/user/validate-token';
@@ -30,3 +31,12 @@ export const mockValidateToken = (): ValidateTokenContract => {
 	}
 	return new ValidateTokenStub();
 };
+
+export const mockCheckUserHasPixKey = (): CheckUserHasPixKeyContract => {
+	class CheckUserHasPixKeyStub implements CheckUserHasPixKeyContract {
+		async check (): Promise<boolean | null>{
+			return await Promise.resolve(true);
+		}
+	}
+	return new CheckUserHasPixKeyStub();
+}; 

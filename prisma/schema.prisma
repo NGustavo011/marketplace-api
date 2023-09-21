@@ -18,6 +18,7 @@ model User {
   updatedAt  DateTime    @updatedAt
   orderItems OrderItem[]
   products   Product[]
+  pixKey     String?
 }
 
 model Category {

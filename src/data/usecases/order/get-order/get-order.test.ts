@@ -2,7 +2,7 @@ import { throwError } from '../../../../domain/test/test-helpers';
 import { GetOrderRepository } from '../../../repositories-contracts/order/get-order-repository';
 import { mockGetOrderParams, mockGetOrderRepository, mockOrderModel } from '../../../test/mock-order';
 import { GetOrder } from './get-order';
-
+import MockDate from 'mockdate';
 
 interface SutTypes {
     getOrderRepositoryStub: GetOrderRepository
@@ -19,6 +19,12 @@ const makeSut = (): SutTypes => {
 };
 
 describe('GetOrder usecase', ()=>{
+	beforeAll(() => {
+		MockDate.set(new Date());
+	});
+	afterAll(() => {
+		MockDate.reset();
+	});
 	describe('GetOrderRepository dependency', ()=>{
 		test('Deve chamar GetOrderRepository com os valores corretos', async ()=>{
 			const { sut, getOrderRepositoryStub } = makeSut();

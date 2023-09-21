@@ -11,5 +11,6 @@ export interface UserModel {
     password: string
     cpf: string
     role: RoleModel
+    pixKey?: string
 }
   

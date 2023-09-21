@@ -1,6 +1,8 @@
 import { UserModel } from '../../domain/models/user';
+import { CheckUserHasPixKeyParams, CheckUserHasPixKeyReturn } from '../../domain/usecases-contracts/user/check-user-has-pix-key';
 import { LoginParams } from '../../domain/usecases-contracts/user/login';
 import { RegisterParams } from '../../domain/usecases-contracts/user/register';
+import { CheckUserHasPixKeyRepository } from '../repositories-contracts/user/check-user-has-pix-key-repository';
 import { LoadAccountByEmailRepository } from '../repositories-contracts/user/load-account-by-email-repository';
 import { RegisterRepository } from '../repositories-contracts/user/register-repository';
 
@@ -16,13 +18,16 @@ export const mockRegisterParams = (): RegisterParams => ({
 	cpf: '986.208.638-60'
 });
 
+export const mockCheckUserHasPixKeyParams = (): CheckUserHasPixKeyParams => ('any_id');
+
 export const mockUserModel = (): UserModel => ({
 	id: 'any_id',
 	name: 'any_name',
 	email: 'any_email',
 	password: 'any_password',
 	role: 'user',
-	cpf: '986.208.638-60'
+	cpf: '986.208.638-60',
+	pixKey: 'any_pix_key'
 });
 
 export const mockRegisterRepository = (): RegisterRepository => {
@@ -41,4 +46,13 @@ export const mockLoadAccountByEmailRepository = (): LoadAccountByEmailRepository
 		}
 	}
 	return new LoadAccountByEmailRepositoryStub();
+};
+
+export const mockCheckUserHasPixKeyRepository = (): CheckUserHasPixKeyRepository => {
+	class CheckUserHasPixKeyRepositoryStub implements CheckUserHasPixKeyRepository {
+		async checkUserHasPixKey (): Promise<CheckUserHasPixKeyReturn | null>{
+			return await Promise.resolve(true);
+		}
+	}
+	return new CheckUserHasPixKeyRepositoryStub();
 };

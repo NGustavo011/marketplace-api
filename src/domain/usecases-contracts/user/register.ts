@@ -5,6 +5,7 @@ export interface RegisterParams {
   email: string
   password: string
   cpf: string
+  pixKey?: string
 }
 export type RegisterReturn = UserModel
 
