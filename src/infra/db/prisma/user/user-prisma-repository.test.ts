@@ -1,4 +1,4 @@
-import { mockRegisterParams } from '../../../../data/test/mock-user';
+import { mockRegisterParams, mockUserModel } from '../../../../data/test/mock-user';
 import { prisma } from '../../../../main/config/prisma';
 import { mockPrismaUser, mockPrismaUserWithPixKey } from '../../../test/prisma/user';
 import { clearDatabase } from '../../../test/prisma/clear-database';
@@ -63,6 +63,28 @@ describe('UserPrismaRepository', () => {
 			await mockPrismaUserWithPixKey();
 			const userHasPixKey = await sut.checkUserHasPixKey('user_id_with_pix_key');
 			expect(userHasPixKey).toBeTruthy();
+		});
+		
+	});
+	describe('edit()', () => {
+		test('Deve retornar null em caso de não encontrar o usuário pelo id no método de edit', async () => {
+			const sut = makeSut();
+			const user = await sut.edit({
+				id: 'any_id',
+				pixKey: 'any_pix_key'
+			});
+			expect(user).toBeNull();
+		});
+		test('Deve retornar um UserModel atualizado em caso sucesso no método de edit', async () => {
+			const sut = makeSut();
+			await mockPrismaUser();
+			const user = await sut.edit({
+				id: 'user_id',
+				pixKey: 'any_pix_key'
+			});
+			expect(user).toBeTruthy();
+			expect(user?.email).toBe(mockUserModel().email);
+			expect(user?.pixKey).toBe('any_pix_key');
 		});
 		
 	});

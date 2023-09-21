@@ -9,6 +9,7 @@ import { addProductPath } from './product/add-product-path';
 import { deleteProductPath } from './product/delete-product-path';
 import { editProductPath } from './product/edit-product-path';
 import { getProductPath } from './product/get-product-path';
+import { editUserPath } from './user/edit-user-path';
 import { loginPath } from './user/login-path';
 import { signUpPath } from './user/register-path';
 
@@ -16,6 +17,7 @@ import { signUpPath } from './user/register-path';
 export const swaggerPaths = {
 	'/sign-up': signUpPath,
 	'/login': loginPath,
+	'/edit-user': editUserPath,
 	'/get-product': getProductPath,
 	'/add-product': addProductPath,
 	'/edit-product': editProductPath,

@@ -1,5 +1,6 @@
 import { mockUserModel } from '../../data/test/mock-user';
 import { CheckUserHasPixKeyContract } from '../../domain/usecases-contracts/user/check-user-has-pix-key';
+import { EditUserContract, EditUserReturn } from '../../domain/usecases-contracts/user/edit-user';
 import { LoginContract, LoginReturn } from '../../domain/usecases-contracts/user/login';
 import { RegisterContract, RegisterReturn } from '../../domain/usecases-contracts/user/register';
 import { DecrypterPayload, ValidateTokenContract } from '../../domain/usecases-contracts/user/validate-token';
@@ -40,3 +41,12 @@ export const mockCheckUserHasPixKey = (): CheckUserHasPixKeyContract => {
 	}
 	return new CheckUserHasPixKeyStub();
 }; 
+
+export const mockEditUser = (): EditUserContract =>{
+	class EditUserStub implements EditUserContract {
+		async edit (): Promise<EditUserReturn | null>{
+			return await Promise.resolve(mockUserModel());
+		}
+	}
+	return new EditUserStub();
+};

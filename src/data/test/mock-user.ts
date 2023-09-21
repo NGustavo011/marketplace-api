@@ -1,8 +1,10 @@
 import { UserModel } from '../../domain/models/user';
 import { CheckUserHasPixKeyParams, CheckUserHasPixKeyReturn } from '../../domain/usecases-contracts/user/check-user-has-pix-key';
+import {  EditUserParams, EditUserReturn } from '../../domain/usecases-contracts/user/edit-user';
 import { LoginParams } from '../../domain/usecases-contracts/user/login';
 import { RegisterParams } from '../../domain/usecases-contracts/user/register';
 import { CheckUserHasPixKeyRepository } from '../repositories-contracts/user/check-user-has-pix-key-repository';
+import { EditUserRepository } from '../repositories-contracts/user/edit-user-repository';
 import { LoadAccountByEmailRepository } from '../repositories-contracts/user/load-account-by-email-repository';
 import { RegisterRepository } from '../repositories-contracts/user/register-repository';
 
@@ -19,6 +21,11 @@ export const mockRegisterParams = (): RegisterParams => ({
 });
 
 export const mockCheckUserHasPixKeyParams = (): CheckUserHasPixKeyParams => ('any_id');
+
+export const mockEditUserParams = (): EditUserParams => ({
+	id: 'any_id',
+	pixKey: 'any_pix_key'
+});
 
 export const mockUserModel = (): UserModel => ({
 	id: 'any_id',
@@ -55,4 +62,13 @@ export const mockCheckUserHasPixKeyRepository = (): CheckUserHasPixKeyRepository
 		}
 	}
 	return new CheckUserHasPixKeyRepositoryStub();
+};
+
+export const mockEditUserRepository = (): EditUserRepository => {
+	class EditUserRepositoryStub implements EditUserRepository {
+		async edit (): Promise<EditUserReturn | null>{
+			return await Promise.resolve(mockUserModel());
+		}
+	}
+	return new EditUserRepositoryStub();
 };
