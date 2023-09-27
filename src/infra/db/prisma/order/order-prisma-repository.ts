@@ -78,7 +78,7 @@ export class OrderPrismaRepository implements AddOrderRepository, EditOrderStatu
 			status: orderInBd.status,
 			orderItems: orderItemsFormated,
 			txId: orderInBd.txId,
-			qrCode: orderInBd.qrCodeImage,
+			qrCode: orderInBd.qrCode,
 			qrCodeImage: orderInBd.qrCodeImage,
 			qrCodeExpiration: orderInBd.qrCodeExpiration
 		};
