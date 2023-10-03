@@ -9,6 +9,7 @@ export abstract class Controller {
 			const output = await this.handle(httpRequest);
 			return output;
 		} catch (error) {
+			console.log(error);
 			return serverError(new ServerError());
 		}
 	}
