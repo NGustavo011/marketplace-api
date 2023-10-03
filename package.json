@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "build": "rm -rf dist && tsc",
-    "vercel-build": "npx prisma migrate deploy",
     "start": "node dist/main/server.js",
     "dev": "yarn nodemon src/main/server.ts",
     "test": "jest --runInBand"
