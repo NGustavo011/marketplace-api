@@ -4,7 +4,7 @@
   "description": "The Marketplace API empowers users to buy and sell products. Users can interact with the platform to facilitate transactions and manage their listings.",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf dist && tsc",
+    "build": "rm -rf dist && yarn && tsc",
     "start": "node dist/main/server.js",
     "dev": "yarn nodemon src/main/server.ts",
     "test": "jest --runInBand"
