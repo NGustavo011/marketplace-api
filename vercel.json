@@ -11,5 +11,11 @@
             "src": "/(.*)",
             "dest": "/dist/main/server.js"
         }
+    ],
+    "rewrites": [
+        {
+            "source": "/(.*)",
+            "destination": "/"
+        }
     ]
 }
